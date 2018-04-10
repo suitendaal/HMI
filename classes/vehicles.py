@@ -10,6 +10,7 @@ class Vehicle(object):
         self.color = color
 
     def getDrawing(self):
+        print()
         # TODO
 
 
