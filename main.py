@@ -16,3 +16,4 @@ label = Canvas(root, image=photo)
 label.pack()
 
 root.mainloop()
+#hoi
