@@ -9,8 +9,8 @@ class Vehicle(object):
         self.length = length
         self.color = color
 
-    def getDrawing(self):
-        print()
+    def getDrawing(self, tk):
+        canvas = Canvas(tk, bg=self.color, heigth=self.length, width=self.width)
         # TODO
 
 

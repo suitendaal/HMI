@@ -1,10 +1,5 @@
-from tkinter import *
+from classes.hmidrawer import *
 
 
-root = Tk()
-
-photo = PhotoImage(file='resources/platoontomtom_empty.png')
-label = Label(root, image=photo)
-label.pack()
-
-root.mainloop()
+hmi = HMIDrawer()
+hmi.show()
