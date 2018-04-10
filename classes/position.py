@@ -7,3 +7,8 @@ class Position:
 
     def getPosition(self):
         return [self.pos_x, self.pos_y]
+
+    def setPosition(self, pos_x, pos_y, direction):
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+        self.direction = direction
