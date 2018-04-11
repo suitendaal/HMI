@@ -36,6 +36,7 @@ class Vehicle(object):
         x0, y0 = np.array(np.dot(matrixA, [center_x - self.width / 2, center_y - self.length / 2]))[0]
         print(np.array(v)[0])
 
+    def rotatedVector(self, ):
 
 
 
