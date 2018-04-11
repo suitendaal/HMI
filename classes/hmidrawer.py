@@ -7,7 +7,7 @@ class HMIDrawer(Tk):
         super().__init__()
         self.baseFrame = Frame(self)
 
-        self.image = PhotoImage(file='resources/platoontomtom_empty1.png')
+        self.image = PhotoImage(file='resources/platoontomtom_empty.png')
         self.label = Label(self.baseFrame, image=self.image, bg='white')
         self.vehicles = []
 
