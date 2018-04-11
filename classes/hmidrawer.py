@@ -5,8 +5,10 @@ class HMIDrawer(Tk):
 
     def __init__(self):
         super().__init__()
+        self.baseFrame = Frame(self)
+
         self.image = PhotoImage(file='resources/platoontomtom_empty1.png')
-        self.label = Label(self, image=self.image, bg='white')
+        self.label = Label(self.baseFrame, image=self.image, bg='white')
         self.vehicles = []
 
         self.initialize()
@@ -17,7 +19,7 @@ class HMIDrawer(Tk):
 
         # Plaats op beeldscherm
         self.geometry("+250+250")
-        # self.lift()
+        self.lift()
 
         # Altijd vooraan
         self.wm_attributes("-topmost", True)
@@ -26,10 +28,12 @@ class HMIDrawer(Tk):
         # self.wm_attributes("-disabled", True)
 
         # Doorszichtig
-        # self.wm_attributes("-transparentcolor", "white")
+        self.wm_attributes("-transparentcolor", "white")
 
         # Laat label zien in tk
         self.label.pack()
+
+        self.baseFrame.pack()
 
     def show(self):
         self.mainloop()

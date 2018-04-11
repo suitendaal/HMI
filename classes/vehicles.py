@@ -10,7 +10,7 @@ class Vehicle(object):
         self.length = length
         self.color = color
 
-    def getCanvas(self, tk):
+    def getCanvas(self, canvas):
         center_x = self.position.pos_x
         center_y = self.position.pos_y
         direction = np.radians(self.position.direction)
@@ -53,11 +53,7 @@ class Vehicle(object):
             rotatedPoint += [center_x, center_y]
             coord.extend(rotatedPoint)
 
-        print(coord)
-        canvas = Canvas(tk, bg='white', width=100, height=100)
-        # canvas.master.wm_attributes("-transparentcolor", "white")
-        canvas.place(relx=0, rely=0, anchor=CENTER)
-        canvas.create_polygon(coord, fill='gray')
+        canvas.create_polygon(coord, fill=self.color)
 
         return canvas
 
