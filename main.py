@@ -6,10 +6,10 @@ import matlab.engine
 
 hmi = HMIDrawer()
 
-position = Position(0, 0, 30)
+position = Position(10, 10, 45)
 car = Car(position)
-car.getCanvas(hmi)
-# canvas.pack()
+canvas = car.getCanvas(hmi.label)
+canvas.pack()
 
-# hmi.show()
+hmi.show()
 

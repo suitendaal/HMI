@@ -13,20 +13,20 @@ class HMIDrawer(Tk):
 
     def initialize(self):
         # Venster eromheen
-        self.overrideredirect(True)
+        # self.overrideredirect(True)
 
         # Plaats op beeldscherm
         self.geometry("+250+250")
-        self.lift()
+        # self.lift()
 
         # Altijd vooraan
         self.wm_attributes("-topmost", True)
 
         # Kan verplaatsen
-        self.wm_attributes("-disabled", True)
+        # self.wm_attributes("-disabled", True)
 
         # Doorszichtig
-        self.wm_attributes("-transparentcolor", "white")
+        # self.wm_attributes("-transparentcolor", "white")
 
         # Laat label zien in tk
         self.label.pack()

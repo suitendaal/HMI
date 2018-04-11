@@ -31,20 +31,46 @@ class Vehicle(object):
         # canvas = Canvas(tk, bg=self.color, height=max_y - min_y, width=max_x - min_x)
         # canvas.create_polygon(coord)
         # return canvas
-        c, s = np.cos(direction), np.sin(direction)
-        matrixA = np.matrix('{} {}; {}, {}'.format(c, -s, s, c))
-        x0, y0 = np.array(np.dot(matrixA, [center_x - self.width / 2, center_y - self.length / 2]))[0]
-        print(np.array(v)[0])
 
-    def rotatedVector(self, ):
+        c, s = np.cos(direction), np.sin(direction)
+
+        rotationMatrix = [
+            [c, -s],
+            [s, c]
+            ]
+
+        pointMatrix = [
+            [-1, -1],
+            [1, -1],
+            [1, 1],
+            [-1, 1]
+            ]
+        points = np.dot(pointMatrix, [[self.width / 2, 0], [0, self.length / 2]])
+
+        coord = []
+        for point in points:
+            rotatedPoint = self.rotatedVector(rotationMatrix, point)
+            rotatedPoint += [center_x, center_y]
+            coord.extend(rotatedPoint)
+
+        print(coord)
+        canvas = Canvas(tk, bg='white', width=100, height=100)
+        # canvas.master.wm_attributes("-transparentcolor", "white")
+        canvas.place(relx=0, rely=0, anchor=CENTER)
+        canvas.create_polygon(coord, fill='gray')
+
+        return canvas
+
+    def rotatedVector(self, rotationMatrix, point):
+        return np.array(np.dot(rotationMatrix, point))
 
 
 
 class Car(Vehicle):
 
     def __init__(self, position):
-        width = 5
-        length = 10
+        width = 20
+        length = 50
         color = 'red'
         super().__init__(position, width, length, color)
 
