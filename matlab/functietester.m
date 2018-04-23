@@ -1,5 +1,8 @@
 function [rel_pos, rel_dir] = functietester()
 
+vehicles = [
+
+%% Moet eigenlijk de simulink shit importeren
 pos_x = 6;
 pos_y = 1;
 dir = 90;
