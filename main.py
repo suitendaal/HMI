@@ -3,9 +3,19 @@ from classes.vehicles import *
 from classes.position import *
 from time import *
 import matlab.engine
+import sys
 
 
 def main():
+
+    if len(sys.argv[1:]) > 0:
+        arg = int(sys.argv[1:][0])
+        if 0 < arg <= 5:
+            sys.exit(4)
+    else:
+        arg = 4
+    print("arg: {}".format(arg))
+
     # hmi = HMIDrawer()
 
     # position1 = Position(100, 100, 45)
@@ -28,9 +38,8 @@ def main():
 
     eng = matlab.engine.start_matlab()
     eng.addpath(r'matlab', nargout=0)
-    print(eng.kwadraat(2))
+    print(eng.functietester())
     print('JEMOEDER')
-    print(eng.kwadraat(3))
 
 if __name__ == '__main__':
     main()
