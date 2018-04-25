@@ -3,30 +3,23 @@ classdef Vehicle
     %   Detailed explanation goes here
     
     properties
+        % Id and characteristics
+        PartNR
         Type
-        Pos_x
-        Pos_y
-        Direction
+        
+        % Position and speed
+        Position
+        Dynamics  
     end
     
     methods
-        function obj = Vehicle(type, pos_x, pos_y, direction)
+        function obj = Vehicle(part_nr, type, position, dynamics)
             % Vehicle constructor
+            obj.PartNR = part_nr;
             obj.Type = type;
-            obj.Pos_x = pos_x;
-            obj.Pos_y = pos_y;
-            obj.Direction = direction;
+            obj.Position = position;
+            obj.Dynamics = dynamics;
         end
-        
-        function [pos, dir] = get_position(obj, self_pos_x, self_pos_y, self_dir)
-            % Returns relative position from the main car
-            [pos, dir] = positions(obj.Pos_x, obj.Pos_y, obj.Direction, self_pos_x, self_pos_y, self_dir);
-        end
-    end
-    
-    enumeration
-        Car;
-        Truck;
     end
 end
 
