@@ -4,16 +4,14 @@ classdef Dynamics
     
     properties
         Velocity
-        Acc
         DisToInter
         Lane  
     end
     
     methods
-        function obj = Dynamics(velocity, acc, dis_to_inter, lane)
+        function obj = Dynamics(velocity, dis_to_inter, lane)
             %Constructor
             obj.Velocity = velocity;
-            obj.Acc = acc;
             obj.DisToInter = dis_to_inter;
             obj.Lane = lane;
         end

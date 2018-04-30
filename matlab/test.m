@@ -1,1 +1,0 @@
-[vehicle_positions, environment_positions, advisory_speed] = main();

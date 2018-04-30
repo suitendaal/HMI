@@ -9,7 +9,12 @@ classdef Vehicle
         
         % Position and speed
         Position
-        Dynamics  
+        Dynamics
+        
+        % Time to reach intersection
+        TimeToInter
+        TimeToInterFront
+        TimeToInterBack
     end
     
     methods
