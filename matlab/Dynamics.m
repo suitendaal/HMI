@@ -1,8 +1,9 @@
-classdef Dynamics
+classdef Dynamics < handle
     %Variables which describe the dynamics and the position on the road.
     %For calculations.
     
     properties
+        Acc
         Velocity
         DisToInter
         Lane  
@@ -10,7 +11,7 @@ classdef Dynamics
     
     methods
         function obj = Dynamics(velocity, dis_to_inter, lane)
-            %Constructor
+            % Default constructor
             obj.Velocity = velocity;
             obj.DisToInter = dis_to_inter;
             obj.Lane = lane;

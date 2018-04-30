@@ -14,6 +14,14 @@ classdef Gap
             obj.EndTime = end_time;
             obj.IsGap = is_gap;
         end
+        
+        function time = get_time_to_inter(obj)
+            time = (obj.BeginTime + obj.EndTime) / 2;
+        end
+        
+        function duration = get_duration(obj)
+            duration = obj.BeginTime - obj.EndTime;
+        end
     end
 end
 
