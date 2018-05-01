@@ -1,4 +1,4 @@
-classdef Dynamics < handle
+classdef Dynamics
     %Variables which describe the dynamics and the position on the road.
     %For calculations.
     
