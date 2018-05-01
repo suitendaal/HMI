@@ -1,6 +1,5 @@
 classdef Vehicle
-    %UNTITLED Summary of this class goes here
-    %   Detailed explanation goes here
+    %Alle voertuigen die gelezen worden
     
     properties
         % Id and characteristics
