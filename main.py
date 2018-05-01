@@ -5,24 +5,18 @@ from time import *
 import matlab.engine
 import sys
 import socket
-import struct
+from udp.udpsocket import UDPSocket
+from udp.datamanager import DataManager
 
 
 def main():
 
     # Create a UDP socket
-    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     server_address = ('127.0.0.1', 11000)
-    sock.bind(server_address)
-    repeat = True
+    sock = UDPSocket(server_address)
+    datamanager = DataManager(sock)
 
-    while repeat:
-        (data, addr) = sock.recvfrom(1024)
-        print(addr)
-        data = struct.unpack('d', data)
-        print(data[0])
 
-        sleep(1)
 
     # if len(sys.argv[1:]) > 0:
     #     arg = int(sys.argv[1:][0])
