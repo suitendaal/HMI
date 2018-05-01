@@ -47,7 +47,16 @@ def createGaps(vehicles, t_max):
     return gaps
 
 
-def find_target_gap(gaps):
+def find_target_gap(vehicles, gaps):
+    vehicle = vehicles[0]
+    time_to_inter = vehicle.time_to_inter
+    gaps = gaps.sortGaps(time_to_inter)
+    for i in gaps:
+        if gaps{i}.isgap AND gaps{i}.getDuration > abs(vehicle.time_to_inter_front - vehicle.time_to_inter_back)
+            target_gap = gaps{i}
+        break
+    break
+
     # TODO: Sort gaps on time from predicted time. Find target gap
     return None
 
