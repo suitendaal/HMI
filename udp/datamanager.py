@@ -19,8 +19,8 @@ class DataManager(object):
         while repeat:
             data = self.udp_socket.get_data()
             vehicles, roads, variables = self.manageData(data)
-            vehicles, t_min, t_max = calculateTimeToIntersection(vehicles)
-            self.advisory_speed = calculateAdvisorySpeed(vehicles, t_max);
+            t_min, t_max = calculateTimeToIntersection(vehicles)
+            self.advisory_speed = calculateAdvisorySpeed(vehicles, t_max)
 
 
     def manageData(self, data):
