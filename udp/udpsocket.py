@@ -11,6 +11,8 @@ class UDPSocket(socket.socket):
 
     def get_data(self):
         (data, addr) = self.recvfrom(1024)
-        data = struct.unpack('d', data)
-        self.data = data
-        return data
+        values = []
+        for i in range(0, len(data), 4):
+            values.append(struct.unpack('>f', data[i:i+4])[0])
+        self.data = values
+        return values

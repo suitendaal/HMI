@@ -1,27 +1,26 @@
 import json
 from udp.udpsocket import UDPSocket
 from udp.calculations import *
+from classes.vehicle_STsoftware import *
 
 
-values = json.load(open('values/num.json'))
+values = json.load(open('values/num.json'))['udp_data']
 servervalues = values['server']['dspace']
 
 
 class DataManager(object):
 
-    def __init__(self):
-        self.udp_socket = UDPSocket((servervalues['ip_address'], servervalues['port']))
+    def __init__(self, udp_socket):
+        self.udp_socket = udp_socket
         self.advisory_speed = None
+        self.vehicles = None
+        self.roads = None
+        self.variables = None
 
-    def start(self):
-        repeat = True
-
-        while repeat:
-            data = self.udp_socket.get_data()
-            vehicles, roads, variables = self.manageData(data)
-            t_min, t_max = calculateTimeToIntersection(vehicles)
-            self.advisory_speed = calculateAdvisorySpeed(vehicles, t_max)
-
+    def start(self, data):
+        self.vehicles, self.roads, self.variables = self.manageData(data)
+        t_min, t_max = calculateTimeToIntersection(self.vehicles)
+        self.advisory_speed = calculateAdvisorySpeed(self.vehicles, t_max)
 
     def manageData(self, data):
         # In matlab this function is called sort and vehicle convert
@@ -30,6 +29,38 @@ class DataManager(object):
         roads = None
         variables = None
 
-        # TODO: put data in classes
+        main_vehicle_variables = values['vehicle_values']['main_variables']
+        vehicle_amount = values['vehicle_values']['vehicle_amount']
+        vehicle_variables = values['vehicle_values']['vehicle_variables']
+
+        # TODO: If roads or other variables are added, more code is needed
+
+        main_vehicle_data = data[0:main_vehicle_variables]
+        other_vehicles_data = data[main_vehicle_variables:main_vehicle_variables + (vehicle_amount * vehicle_variables)]
+
+        main_vehicle = self.getMainVehicle(main_vehicle_data)
+        other_vehicles = self.getOtherVehicles(other_vehicles_data, vehicle_variables)
+        vehicles = [main_vehicle]
+        vehicles.extend(other_vehicles)
 
         return vehicles, roads, variables
+
+    def getMainVehicle(self, data):
+        partnr = data[0]
+        vehicle_type = Type(data[1], data[2])
+        position = Position(data[3], data[4], data[5], data[6], data[7])
+        dynamics = Dynamics(data[8], data[9], data[10])
+        vehicle = MainVehicle(partnr, vehicle_type, position, dynamics)
+        return vehicle
+
+    def getOtherVehicles(self, data, number):
+        vehicles = []
+        for i in range(0, len(data), number):
+            vehicle_data = data[i:i+number]
+            partnr = data[0]
+            vehicle_type = Type(vehicle_data[1], vehicle_data[2])
+            position = Position(vehicle_data[3], vehicle_data[4], vehicle_data[5], vehicle_data[6], vehicle_data[7])
+            dynamics = Dynamics(vehicle_data[8], vehicle_data[9])
+            vehicle = Vehicle(partnr, vehicle_type, position, dynamics)
+            vehicles.append(vehicle)
+        return vehicles

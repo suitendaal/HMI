@@ -11,8 +11,3 @@ class Gap(object):
 
     def getDuration(self):
         return self.begintime - self.endtime
-
-    def sortGaps(self, timetointer):
-        time = (self.begintime + self.endtime)/2 - timetointer
-        sorted(self, key=time, reverse=False)
-        return self
