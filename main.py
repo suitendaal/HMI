@@ -7,15 +7,16 @@ import sys
 import socket
 from udp.udpsocket import UDPSocket
 from udp.datamanager import DataManager
-from classes.parallel_process import *
+from classes.speedprogram import *
 
 
 def main():
     window = HMIDrawer()
-    #process = ParallelProcess(window)
-    #process.start()
-    while True:
-        window.show()
+    program = SpeedProgram(window)
+    program.start()
+    #while True:
+     #   window.show()
+
 
 if __name__ == '__main__':
     main()

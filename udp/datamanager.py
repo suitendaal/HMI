@@ -1,5 +1,3 @@
-import json
-from udp.udpsocket import UDPSocket
 from udp.calculations import *
 from classes.vehicle_STsoftware import *
 
@@ -12,15 +10,23 @@ class DataManager(object):
 
     def __init__(self, udp_socket):
         self.udp_socket = udp_socket
-        self.advisory_speed = None
         self.vehicles = None
         self.roads = None
         self.variables = None
+        self.advisory_speed = None
+        self.gap = None
+
+        self.error = False
 
     def start(self, data):
+        old_vehicles = self.vehicles
+        old_gap = self.gap
+
         self.vehicles, self.roads, self.variables = self.manageData(data)
         t_min, t_max = calculateTimeToIntersection(self.vehicles)
-        self.advisory_speed = calculateAdvisorySpeed(self.vehicles, t_max)
+        self.gap, self.advisory_speed = calculateAdvisorySpeed(self.vehicles, t_max)
+
+        self.error = checkIfError(old_vehicles, self.vehicles, old_gap, self.gap)
 
     def manageData(self, data):
         # In matlab this function is called sort and vehicle convert

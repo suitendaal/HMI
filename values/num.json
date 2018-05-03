@@ -10,6 +10,11 @@
 
   "udp_data":
   {
+    "factor": 1,
+	"road_data": {
+	  "xpos_start_merginglane": -10,
+	  "xpos_end_merginglane": 250
+	},
     "vehicle_values": {
       "vehicle_amount": 16,
       "vehicle_variables": 10,

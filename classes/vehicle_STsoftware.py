@@ -1,3 +1,7 @@
+import json
+
+
+values = json.load(open('values/num.json'))['udp_data']['road_data']
 
 
 class Vehicle(object):
@@ -12,11 +16,14 @@ class Vehicle(object):
         self.time_to_inter_front = None
         self.time_to_inter_back = None
 
-    def timeToInter(self):
+    def timeToInter(self, dis_to_inter=None):
+        if dis_to_inter is None:
+            dis_to_inter = self.disToInter()
+
         if self.dynamics.velocity != 0:
-            self.time_to_inter = self.dynamics.dis_to_inter / self.dynamics.velocity
-            self.time_to_inter_front = (self.dynamics.dis_to_inter - self.type.carlength / 2) / self.dynamics.velocity
-            self.time_to_inter_back = (self.dynamics.dis_to_inter + self.type.carlength / 2) / self.dynamics.velocity
+            self.time_to_inter = dis_to_inter / self.dynamics.velocity
+            self.time_to_inter_front = (dis_to_inter - self.type.carlength / 2) / self.dynamics.velocity
+            self.time_to_inter_back = (dis_to_inter + self.type.carlength / 2) / self.dynamics.velocity
         else:
             self.time_to_inter = -1
             self.time_to_inter_front = -1
@@ -24,6 +31,10 @@ class Vehicle(object):
 
     def getDuration(self):
         return abs(self.time_to_inter_back - self.time_to_inter_front)
+
+    def disToInter(self):
+        xpos_lane = values['xpos_end_merginglane']
+        return xpos_lane - self.position.xpos
 
 
 class Type(object):

@@ -1,13 +1,30 @@
+import json
+
 
 class Gap(object):
 
-    def __init__(self, begintime, endtime, isgap):
-        self.begintime = begintime
-        self.endtime = endtime
-        self.isgap = isgap
+    def __init__(self, vehicle_back, vehicle_front):
+        self.vehicle_back = vehicle_back
+        self.vehicle_front = vehicle_front
 
-    def getTimeToInter(self):
-        return (self.begintime + self.endtime)/2
+    def xpos(self):
+        xpos_back = self.vehicle_back.position.xpos + self.vehicle_back.type.carlength / 2
+        xpos_front = self.vehicle_front.position.xpos - self.vehicle_front.type.carlength / 2
+        return (xpos_back + xpos_front) / 2
 
-    def getDuration(self):
-        return self.begintime - self.endtime
+    def disToInter(self):
+        xpos_merginlane = json.load(open('values/num.json'))['udp_data']['road_data']['xpos_end_merginglane']
+        return xpos_merginlane - self.xpos()
+
+    def size(self):
+        xpos_back = self.vehicle_back.position.xpos + self.vehicle_back.type.carlength / 2
+        xpos_front = self.vehicle_front.position.xpos - self.vehicle_front.type.carlength / 2
+        return abs(xpos_front - xpos_back)
+
+    def speed(self):
+        speed_back = self.vehicle_back.dynamics.velocity
+        speed_front = self.vehicle_front.dynamics.velocity
+        return (speed_back + speed_front) / 2
+
+    def timeToInter(self):
+        return self.disToInter() / self.speed()
