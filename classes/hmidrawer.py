@@ -14,23 +14,25 @@ class HMIDrawer(Tk):
         self.baseFrame = Frame(self)
         self.initializeBase()
 
-        # Set background label.
+        # Set background label, tom-tom image.
         self.backGround = Label(self.baseFrame, bg=colors['transparent'])
         self.initializeBackground()
 
         # Set vehicle canvas.
-        self.canvas = Canvas(self.baseFrame, bg=colors['background'], highlightthickness=0,
-                             width=num['canvas']['width'], height=num['canvas']['height'])
+        self.canvas = Canvas(self.baseFrame, bg=colors['transparent'], highlightthickness=0)
         self.initializeCanvas()
 
+        self.speedsign = Label(self.canvas, bg=colors['background'], borderwidth=0)
+        self.initializeSpeedsign()
+
         # Set Text
-        self.text = Text(self.canvas, bg=colors['background'], borderwidth=0, highlightthickness=0, font=("Helvetica", 80), height=1, width=3)
+        self.text = Text(self.canvas, bg=colors['white'], borderwidth=0, highlightthickness=0, font=("Helvetica", 15), height=1, width=3)
         self.initializeText()
 
         self.vehicles = []
 
     def initializeText(self):
-        self.text.place(relx=0.75, rely=0.5, anchor=CENTER)
+        self.text.place(relx=0.9, rely=0.15, anchor=CENTER)
         self.text.insert(END, " hoi ")
 
     def setText(self, text):
@@ -40,11 +42,12 @@ class HMIDrawer(Tk):
         self.update()
 
     def initializeBase(self):
-        # Venster eromheen
+        # Venster eromheen weghalen
         # self.overrideredirect(True)
 
         # Plaats op beeldscherm
-        self.geometry("-4100+750")
+        geometry = "+" + str(num["canvas"]["place_x"]) + "+" + str(num["canvas"]["place_y"])
+        self.geometry(geometry)
         self.lift()
 
         # Altijd vooraan
@@ -61,17 +64,34 @@ class HMIDrawer(Tk):
 
     def initializeBackground(self):
         # Choose image
-        self.image = PhotoImage(file='resources/platoontomtom_empty.png')
+        self.border = PhotoImage(file='resources/platoontomtom_empty.png')
+
+        # zoom the image
+        self.border = self.border.zoom(num["canvas"]["zoomlevel"][0])
+        self.border = self.border.subsample(num["canvas"]["zoomlevel"][1])
 
         # Add image to label
-        self.backGround.configure(image=self.image)
+        self.backGround.configure(image=self.border)
 
         # Pack label
         self.backGround.pack()
 
+    def initializeSpeedsign(self):
+        # Choose image
+        self.speedsignimage = PhotoImage(file='resources/snelheidsbord.png')
+
+        # zoom the image
+        self.speedsignimage = self.speedsignimage.zoom(num["canvas"]["zoomlevel"][0])
+        self.speedsignimage = self.speedsignimage.subsample(num["canvas"]["zoomlevel"][1])
+
+        self.speedsign.configure(image=self.speedsignimage)
+
+        self.speedsign.place(relx=0.9, rely=0.16, anchor=CENTER)
+
     def initializeCanvas(self):
         # Verplaats canvas naar rechts en naar beneden
-        self.canvas.place(x=-1, y=-4, relx=0.5, rely=0.5, anchor=CENTER)
+        self.canvas.place(relx=440.5/882, rely=286/580, anchor=CENTER)
+        self.canvas.config(width=self.border.width() * 0.705, height=self.border.height() * 0.625)
 
     def show(self):
         self.update_idletasks()

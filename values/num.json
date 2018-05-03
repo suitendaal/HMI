@@ -1,10 +1,11 @@
 {
   "canvas":
   {
-    "width": 621,
-    "height": 361,
+    "width": 50,
+    "height": 50,
     "place_x": 132,
-    "place_y": 108
+    "place_y": 108,
+    "zoomlevel": [1, 2]
   },
 
   "udp_data":
