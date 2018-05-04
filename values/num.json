@@ -3,9 +3,9 @@
   {
     "width": 50,
     "height": 50,
-    "place_x": 132,
-    "place_y": 108,
-    "zoomlevel": [1, 2]
+    "place_x": -2500,
+    "place_y": 700,
+    "zoomlevel": [2, 3]
   },
 
   "udp_data":

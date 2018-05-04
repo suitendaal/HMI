@@ -1,18 +1,15 @@
 from classes.hmidrawer import *
-from classes.vehicles import *
-from classes.position import *
-from time import *
-import matlab.engine
-import sys
-import socket
-from udp.udpsocket import UDPSocket
-from udp.datamanager import DataManager
 from classes.speedprogram import *
+import sys
 
 
 def main():
+    level = 3
+    if len(sys.argv) == 2 and int(sys.argv[1]) in [3, 4]:
+        level = int(sys.argv[1])
+
     window = HMIDrawer()
-    program = SpeedProgram(window)
+    program = SpeedProgram(window, level)
     program.start()
     #while True:
      #   window.show()

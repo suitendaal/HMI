@@ -13,7 +13,7 @@ class DataManager(object):
         self.vehicles = None
         self.roads = None
         self.variables = None
-        self.advisory_speed = None
+        self.advisory_speed = -1
         self.gap = None
 
         self.error = False
@@ -23,8 +23,9 @@ class DataManager(object):
         old_gap = self.gap
 
         self.vehicles, self.roads, self.variables = self.manageData(data)
-        t_min, t_max = calculateTimeToIntersection(self.vehicles)
-        self.gap, self.advisory_speed = calculateAdvisorySpeed(self.vehicles, t_max)
+        if self.vehicles is not None and len(self.vehicles) > 1 and self.vehicles[0].disToInter() < 500:
+            t_min, t_max = calculateTimeToIntersection(self.vehicles)
+            self.gap, self.advisory_speed = calculateAdvisorySpeed(self.vehicles, t_max)
 
         self.error = checkIfError(old_vehicles, self.vehicles, old_gap, self.gap)
 

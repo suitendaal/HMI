@@ -43,7 +43,7 @@ class HMIDrawer(Tk):
 
     def initializeBase(self):
         # Venster eromheen weghalen
-        # self.overrideredirect(True)
+        self.overrideredirect(True)
 
         # Plaats op beeldscherm
         geometry = "+" + str(num["canvas"]["place_x"]) + "+" + str(num["canvas"]["place_y"])
@@ -54,7 +54,7 @@ class HMIDrawer(Tk):
         self.wm_attributes("-topmost", True)
 
         # Kan verplaatsen
-        # self.wm_attributes("-disabled", True)
+        self.wm_attributes("-disabled", True)
 
         # Doorszichtig
         self.wm_attributes("-transparentcolor", colors['transparent'])

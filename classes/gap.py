@@ -6,6 +6,7 @@ class Gap(object):
     def __init__(self, vehicle_back, vehicle_front):
         self.vehicle_back = vehicle_back
         self.vehicle_front = vehicle_front
+        self.rel_distance = 0
 
     def xpos(self):
         xpos_back = self.vehicle_back.position.xpos + self.vehicle_back.type.carlength / 2
