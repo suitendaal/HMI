@@ -3,6 +3,16 @@ from classes.gap import *
 import json
 
 
+def timeToInter(vehicle, acc):
+    temp = np.roots([acc / 2, vehicle.dynamics.velocity, -vehicle.disToInter()])
+    temp = temp[~np.iscomplex(temp)]
+    if len(temp) > 0:
+        return np.max(temp)
+    else:
+        return -1
+    pass
+
+
 def calculateTimeToIntersection(vehicles):
     # Define main vehicle.
     vehicle = vehicles[0]
@@ -13,17 +23,12 @@ def calculateTimeToIntersection(vehicles):
     t_min = 2 * vehicle.disToInter() / (min_speed + vehicle.dynamics.velocity)
 
     # Time with maximal acceleration of vehicle.
-    temp = np.roots([max_acc / 2, vehicle.dynamics.velocity, -vehicle.disToInter()])
-    t_max = np.max(temp[~np.iscomplex(temp)])
+    t_max = timeToInter(vehicle, max_acc)
 
     # Time to inter with current speed and acceleration.
-    if vehicle.dynamics.acc != 0:
-        temp = np.roots([vehicle.dynamics.acc / 2, vehicle.dynamics.velocity, -vehicle.disToInter()])
-        vehicle.time_to_inter = np.max(temp[~np.iscomplex(temp)])
-        speed_at_inter = vehicle.dynamics.velocity + vehicle.dynamics.acc * vehicle.time_to_inter
-    else:
-        vehicle.time_to_inter = -1
-        speed_at_inter = -1
+    vehicle.time_to_inter = timeToInter(vehicle, vehicle.dynamics.acc)
+
+    speed_at_inter = vehicle.dynamics.velocity + vehicle.dynamics.acc * vehicle.time_to_inter
 
     # Time to inter for front and back of the car with constant speed at intersection.
     vehicle.time_to_inter_front = vehicle.time_to_inter - vehicle.type.carlength / speed_at_inter
@@ -48,9 +53,8 @@ def createGaps(vehicles, t_max):
     return gaps
 
 
-def findTargetGap(vehicles, gaps):
-    vehicle = vehicles[0]
-    factor = json.load(open('values/num.json'))['factor']
+def findTargetGap(vehicle, gaps):
+    factor = json.load(open('values/num.json'))['udp_data']['factor']
 
     # Sort gaps on distance from main vehicle.
     gaps.sort(key=lambda x: abs(x.disToInter() - vehicle.disToInter()))
@@ -58,7 +62,7 @@ def findTargetGap(vehicles, gaps):
     # Find nearest target gap which is at least the vehicle space.
     target_gap = None
     for gap in gaps:
-        if gap.size() > factor * vehicle.type.carlength():
+        if gap.size() > factor * vehicle.type.carlength:
             target_gap = gap
             break
 
@@ -71,6 +75,9 @@ def findTargetGap(vehicles, gaps):
 
 
 def advisorySpeed(target_gap, main_vehicle):
+    if main_vehicle.disToInter() < 0:
+        return -1
+
     advisory_speed = 2 * main_vehicle.disToInter() / target_gap.timeToInter() + main_vehicle.dynamics.velocity
 
     # Convert to km/h.
@@ -82,9 +89,9 @@ def advisorySpeed(target_gap, main_vehicle):
     return advisory_speed
 
 
-def calculateAdvisorySpeed(vehicles, t_max):
-    main_vehicle = vehicles[0]
-    vehicles = vehicles[1:]
+def calculateAdvisorySpeed(all_vehicles, t_max, gaps = None):
+    main_vehicle = all_vehicles[0]
+    vehicles = all_vehicles[1:]
 
     # For every vehicle, calculate time to intersection.
     for vehicle in vehicles:
@@ -104,13 +111,18 @@ def calculateAdvisorySpeed(vehicles, t_max):
     if (len(vehicles)) > 0:
 
         # Create an array of gaps.
-        gaps = createGaps(vehicles, t_max)
+        if gaps is None:
+            gaps = createGaps(vehicles, t_max)
 
         # Find target gap.
-        target_gap = findTargetGap(vehicles, gaps)
+        target_gap = findTargetGap(main_vehicle, gaps)
 
         # Calculate advisory speed
-        advisory_speed = advisorySpeed(target_gap, main_vehicle)
+        if target_gap is not None:
+            advisory_speed = advisorySpeed(target_gap, main_vehicle)
+            if advisory_speed > main_vehicle.max_speed:
+                gaps.remove(target_gap)
+                calculateAdvisorySpeed(all_vehicles, t_max, gaps)
 
     return target_gap, advisory_speed
 
@@ -121,9 +133,12 @@ def checkIfError(old_vehicles, vehicles, old_gap, gap):
     if old_vehicles is not None:
         for old_vehicle in old_vehicles:
             # Compare old vehicle with the same vehicle if the lane is changed
-            vehicle = [vehicle for vehicle in vehicles if vehicle.partnr == old_vehicle.partnr][0]
-            if vehicle.position.lane == 0 and old_vehicle.position.lane != 0:
-                return True
+            vehicle = [vehicle for vehicle in vehicles if vehicle.partnr == old_vehicle.partnr]
+            if len(vehicle) > 0:
+                vehicle = vehicle[0]
+                if vehicle.position.lane == 0 and old_vehicle.position.lane != 0:
+                    return True
+            
 
     # Check if gap has changed.
     if old_gap is not None:

@@ -25,12 +25,11 @@ class SpeedProgram(object):
                 self.datamanager.start(data)
                 self.showInHMI(self.datamanager.advisory_speed)
 
-    def manageData(self):
-        while self.repeat:
-            data = self.socket.data
-            if data is not None:
-                self.datamanager.start(data)
-                self.showInHMI(self.datamanager.advisory_speed)
+                if self.level == 4 and self.datamanager.error:
+                    self.showError()
 
     def showInHMI(self, advisory_speed):
         self.hmi.setText(str(advisory_speed))
+
+    def showError(self):
+        self.hmi.showError()
