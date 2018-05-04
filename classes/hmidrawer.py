@@ -102,3 +102,9 @@ class HMIDrawer(Tk):
 
     def addVehicles(self, vehicles):
         self.vehicles.extend(vehicles)
+
+    def showError(self):
+        pass
+
+    def plotGap(self, distance):
+        pass

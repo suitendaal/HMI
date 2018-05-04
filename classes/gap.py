@@ -3,10 +3,11 @@ import json
 
 class Gap(object):
 
-    def __init__(self, vehicle_back, vehicle_front):
+    def __init__(self, vehicle_front, vehicle_back=None):
         self.vehicle_back = vehicle_back
         self.vehicle_front = vehicle_front
         self.rel_distance = 0
+        self.time_to_inter = 0
 
     def xpos(self):
         xpos_back = self.vehicle_back.position.xpos + self.vehicle_back.type.carlength / 2
@@ -28,4 +29,7 @@ class Gap(object):
         return (speed_back + speed_front) / 2
 
     def timeToInter(self):
-        return self.disToInter() / self.speed()
+        if self.vehicle_back is not None:
+            return self.disToInter() / self.speed()
+        else:
+            return self.time_to_inter

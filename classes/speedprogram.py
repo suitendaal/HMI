@@ -24,6 +24,7 @@ class SpeedProgram(object):
             if data is not None:
                 self.datamanager.start(data)
                 self.showInHMI(self.datamanager.advisory_speed)
+                self.plotGap(self.datamanager.gap)
 
                 if self.level == 4 and self.datamanager.error:
                     self.showError()
@@ -33,3 +34,7 @@ class SpeedProgram(object):
 
     def showError(self):
         self.hmi.showError()
+
+    def plotGap(self, gap):
+        self.hmi.plotGap(gap.rel_distance)
+        pass

@@ -43,7 +43,7 @@ def createGaps(vehicles, t_max):
     gaps = []
 
     for i in range(1, len(vehicles)):
-        gap = Gap(vehicles[i-1], vehicles[i])
+        gap = Gap(vehicles[i], vehicles[i - 1])
         if vehicles[i].time_to_inter_front > t_max:
             gaps.append(gap)
         elif gap.disToInter() > 0:
@@ -129,8 +129,11 @@ def calculateAdvisorySpeed(all_vehicles, t_max, gaps = None):
                 target_gap, advisory_speed = calculateAdvisorySpeed(all_vehicles, t_max, gaps)
 
     elif len(vehicles) > 0:
-        # TODO: target gap behind last vehicle
-        pass
+        target_gap = Gap(vehicles[0])
+        factor = json.load(open('values/num.json'))['udp_data']['factor']
+        target_gap.time_to_inter = max([main_vehicle.time_to_inter, target_gap.vehicle_back.time_to_inter_back +
+                                        factor * main_vehicle.type.carlength / 2 /
+                                        target_gap.vehicle_back.dynamics.velocity])
 
     if target_gap is not None:
         target_gap.rel_distance = (main_vehicle.time_to_inter - target_gap.timeToInter()) * advisory_speed
