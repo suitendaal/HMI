@@ -18,21 +18,29 @@ class HMIDrawer(Tk):
         self.backGround = Label(self.baseFrame, bg=colors['transparent'])
         self.initializeBackground()
 
-        # Set vehicle canvas.
-        self.canvas = Canvas(self.baseFrame, bg=colors['transparent'], highlightthickness=0)
-        self.initializeCanvas()
+        # Set right canvas.
+        self.canvasright = Canvas(self.baseFrame, bg=colors['background'], highlightthickness=0)
+        self.initializeCanvasRight()
 
-        self.speedsign = Label(self.canvas, bg=colors['background'], borderwidth=0)
+        # Set left canvas.
+        self.canvasleft = Canvas(self.baseFrame, bg=colors['transparent'], highlightthickness=0)
+        self.initializeCanvasLeft()
+
+        # place the target gap in the left canvas
+        self.plotGap(0)
+
+        # Place the speedsign
+        self.speedsign = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
         self.initializeSpeedsign()
 
         # Set Text
-        self.text = Text(self.canvas, bg=colors['white'], borderwidth=0, highlightthickness=0, font=("Helvetica", 15), height=1, width=3)
+        self.text = Text(self.baseFrame, bg=colors['white'], borderwidth=0, highlightthickness=0, font=('Helvetica 16 bold'), height=1, width=4)
         self.initializeText()
 
         self.vehicles = []
 
     def initializeText(self):
-        self.text.place(relx=0.9, rely=0.15, anchor=CENTER)
+        self.text.place(relx=num["canvas"]["place_x_sign"], rely=num["canvas"]["place_y_sign"], anchor=CENTER)
         self.text.insert(END, " hoi ")
 
     def setText(self, text):
@@ -46,7 +54,7 @@ class HMIDrawer(Tk):
         self.overrideredirect(True)
 
         # Plaats op beeldscherm
-        geometry = "+" + str(num["canvas"]["place_x"]) + "+" + str(num["canvas"]["place_y"])
+        geometry = "+" + str(num["canvas"]["place_x"]) + "+" + str(num["canvas"]["place_y"]) # -2500 en 700 voor grote tv
         self.geometry(geometry)
         self.lift()
 
@@ -86,12 +94,18 @@ class HMIDrawer(Tk):
 
         self.speedsign.configure(image=self.speedsignimage)
 
-        self.speedsign.place(relx=0.9, rely=0.16, anchor=CENTER)
+        self.speedsign.place(relx=num["canvas"]["place_x_sign"], rely=num["canvas"]["place_y_sign"], anchor=CENTER)
 
-    def initializeCanvas(self):
+    def initializeCanvasRight(self):
         # Verplaats canvas naar rechts en naar beneden
-        self.canvas.place(relx=440.5/882, rely=286/580, anchor=CENTER)
-        self.canvas.config(width=self.border.width() * 0.705, height=self.border.height() * 0.625)
+        self.canvasright.place(relx=749/882, rely=286/580, anchor=E)
+        self.canvasright.config(width=self.border.width() * 0.3, height=self.border.height() * 0.623)
+
+    def initializeCanvasLeft(self):
+        # Verplaats canvas naar rechts en naar beneden
+        self.canvasleft.place(relx=134 / 882, rely=286 / 580, anchor=W)
+        self.canvasleft.config(width=self.border.width() * 0.405, height=self.border.height() * 0.623)
+
 
     def show(self):
         self.update_idletasks()
@@ -107,4 +121,18 @@ class HMIDrawer(Tk):
         pass
 
     def plotGap(self, distance):
+        self.update()
+        middle_x = self.canvasleft.winfo_width()/2
+        middle_y = self.canvasleft.winfo_height()/2 - distance
+
+        radius = 5
+
+        x0 = middle_x - radius
+        x1 = middle_x + radius
+        y0 = middle_y - radius
+        y1 = middle_y + radius
+
+        print(middle_x)
+        self.gap = self.canvasleft.create_oval(x0, y0, x1, y1, fill=colors["truck"])
+
         pass
