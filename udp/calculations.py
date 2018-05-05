@@ -118,7 +118,6 @@ def calculateAdvisorySpeed(all_vehicles, t_max, gaps = None):
 
         # Find target gap.
         target_gap = findTargetGap(main_vehicle, gaps)
-        print(target_gap.timeToInter() - main_vehicle.time_to_inter)
 
         # Calculate advisory speed
         if target_gap is not None:
@@ -131,9 +130,9 @@ def calculateAdvisorySpeed(all_vehicles, t_max, gaps = None):
     elif len(vehicles) > 0:
         target_gap = Gap(vehicles[0])
         factor = json.load(open('values/num.json'))['udp_data']['factor']
-        target_gap.time_to_inter = max([main_vehicle.time_to_inter, target_gap.vehicle_back.time_to_inter_back +
+        target_gap.time_to_inter = max([main_vehicle.time_to_inter, vehicles[0].time_to_inter_back +
                                         factor * main_vehicle.type.carlength / 2 /
-                                        target_gap.vehicle_back.dynamics.velocity])
+                                        vehicles[0].dynamics.velocity])
 
     if target_gap is not None:
         target_gap.rel_distance = (main_vehicle.time_to_inter - target_gap.timeToInter()) * advisory_speed
@@ -152,7 +151,6 @@ def checkIfError(old_vehicles, vehicles, old_gap, gap):
                 vehicle = vehicle[0]
                 if vehicle.position.lane == 0 and old_vehicle.position.lane != 0:
                     return True
-            
 
     # Check if gap has changed.
     if old_gap is not None:
@@ -160,7 +158,7 @@ def checkIfError(old_vehicles, vehicles, old_gap, gap):
         if gap is None:
             return True
         # If gap is changed.
-        elif old_gap.vehicle_back.partnr != gap.vehicle_back.partnr or old_gap.vehicle_front.partnr != gap.vehicle_front.partnr:
+        elif old_gap.vehicle_back.partnr != gap.vehicle_back.partnr or old_gap.vehicle_front is not gap.vehicle_front or old_gap.vehicle_front.partnr != gap.vehicle_front.partnr:
             return True
 
     return False

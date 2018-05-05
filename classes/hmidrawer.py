@@ -27,7 +27,8 @@ class HMIDrawer(Tk):
         self.initializeCanvasLeft()
 
         # place the target gap in the left canvas
-        self.plotGap(0)
+        self.gaps = []
+        # self.plotGap(0)
 
         # Place the speedsign
         self.speedsign = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
@@ -99,12 +100,12 @@ class HMIDrawer(Tk):
     def initializeCanvasRight(self):
         # Verplaats canvas naar rechts en naar beneden
         self.canvasright.place(relx=749/882, rely=286/580, anchor=E)
-        self.canvasright.config(width=self.border.width() * 0.3, height=self.border.height() * 0.623)
+        self.canvasright.config(width=self.border.width() * 0.35, height=self.border.height() * 0.623)
 
     def initializeCanvasLeft(self):
         # Verplaats canvas naar rechts en naar beneden
         self.canvasleft.place(relx=134 / 882, rely=286 / 580, anchor=W)
-        self.canvasleft.config(width=self.border.width() * 0.405, height=self.border.height() * 0.623)
+        self.canvasleft.config(width=self.border.width() * 0.355, height=self.border.height() * 0.623)
 
 
     def show(self):
@@ -121,9 +122,17 @@ class HMIDrawer(Tk):
         pass
 
     def plotGap(self, distance):
+        ycompensation = 30
+        
+        self.canvasleft.delete("all")
         self.update()
-        middle_x = self.canvasleft.winfo_width()/2
-        middle_y = self.canvasleft.winfo_height()/2 - distance
+        if distance > self.canvasleft.winfo_height() / 2 - ycompensation:
+            distance = self.canvasleft.winfo_height() / 2 - ycompensation
+        elif distance < -self.canvasleft.winfo_height() / 2 - ycompensation:
+            distance = -self.canvasleft.winfo_height() / 2 - ycompensation
+
+        middle_x = self.canvasleft.winfo_width() / 2
+        middle_y = self.canvasleft.winfo_height() / 2 - ycompensation - distance
 
         radius = 5
 
@@ -132,7 +141,4 @@ class HMIDrawer(Tk):
         y0 = middle_y - radius
         y1 = middle_y + radius
 
-        print(middle_x)
         self.gap = self.canvasleft.create_oval(x0, y0, x1, y1, fill=colors["truck"])
-
-        pass

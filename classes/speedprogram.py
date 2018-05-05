@@ -31,8 +31,16 @@ class SpeedProgram(object):
                 self.showInHMI(advisory_speed)
 
                 # Plot gap.
-                if self.datamanager.gap is not None:
-                    self.plotGap(self.datamanager.gap)
+                distances = json.load(open('values/num.json'))['udp_data']['road_data']
+                print("[" + str(distances['xpos_start_merginglane']) + ", " + str(self.datamanager.vehicles[0].position.xpos) + ", " + str(distances['xpos_end_merginglane']))
+                
+                if self.datamanager.gap is not None and distances['xpos_start_merginglane'] < self.datamanager.vehicles[
+                    0].position.xpos < distances['xpos_end_merginglane']:
+                    print("update")
+                    gap = Gap(0)
+                    gap.rel_distance = 0
+                    self.plotGap(gap)
+                #     self.plotGap(self.datamanager.gap)
 
                 # Show error.
                 if self.level == 4 and self.datamanager.error:
@@ -42,7 +50,8 @@ class SpeedProgram(object):
         self.hmi.setText(str(advisory_speed))
 
     def showError(self):
-        self.hmi.showError()
+        print("error")
+        # self.hmi.showError()
 
     def plotGap(self, gap):
         self.hmi.plotGap(gap.rel_distance)
