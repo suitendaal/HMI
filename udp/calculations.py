@@ -80,7 +80,6 @@ def advisorySpeed(target_gap, main_vehicle):
     if main_vehicle.disToInter() < 0:
         return -1
 
-    print(" targetgap:   " + str(target_gap.size()) + "   " + str(target_gap.time_to_inter) + "    "+str(target_gap.xpos()))
     advisory_speed = 2 * main_vehicle.disToInter() / target_gap.timeToInter() - main_vehicle.dynamics.velocity
 
     # Convert to km/h.
