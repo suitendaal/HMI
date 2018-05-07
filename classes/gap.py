@@ -33,3 +33,4 @@ class Gap(object):
             return self.disToInter() / self.speed()
         else:
             return self.time_to_inter
+

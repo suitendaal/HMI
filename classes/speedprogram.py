@@ -54,4 +54,4 @@ class SpeedProgram(object):
         # self.hmi.showError()
 
     def plotGap(self, gap):
-        self.hmi.plotGap(gap.rel_distance)
+        self.hmi.plotGap(gap.xpos())

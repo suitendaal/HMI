@@ -13,10 +13,6 @@ def main():
     window = HMIDrawer()
     program = SpeedProgram(window, level)
 
-    # Tijdelijk voor plotten en troubleshooting
-    main_vehicle = MainVehicle()
-    print("Mainvehicle: " + str(main_vehicle.type.carlength) + "  " + str(main_vehicle.time_to_inter()) + "  " + str(main_vehicle.position.xpos()))
-
     program.start()
     #while True:
      #   window.show()
