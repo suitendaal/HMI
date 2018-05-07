@@ -51,7 +51,6 @@ def createGaps(vehicles, t_max):
             break
         else:
             break
-
     return gaps
 
 
@@ -81,6 +80,7 @@ def advisorySpeed(target_gap, main_vehicle):
     if main_vehicle.disToInter() < 0:
         return -1
 
+    print(" targetgap:   " + str(target_gap.size()) + "   " + str(target_gap.time_to_inter) + "    "+str(target_gap.xpos()))
     advisory_speed = 2 * main_vehicle.disToInter() / target_gap.timeToInter() - main_vehicle.dynamics.velocity
 
     # Convert to km/h.
@@ -118,6 +118,7 @@ def calculateAdvisorySpeed(all_vehicles, t_max, gaps = None):
 
         # Find target gap.
         target_gap = findTargetGap(main_vehicle, gaps)
+
 
         # Calculate advisory speed
         if target_gap is not None:

@@ -32,8 +32,8 @@ class SpeedProgram(object):
 
                 # Plot gap.
                 distances = json.load(open('values/num.json'))['udp_data']['road_data']
-                print("[" + str(distances['xpos_start_merginglane']) + ", " + str(self.datamanager.vehicles[0].position.xpos) + ", " + str(distances['xpos_end_merginglane']))
-                
+                # print("[ time to inter" + str(gap.time_to_inter) + ", " + str(self.datamanager.vehicles[0].position.xpos) + ", " + str(distances['xpos_end_merginglane']))
+
                 if self.datamanager.gap is not None and distances['xpos_start_merginglane'] < self.datamanager.vehicles[
                     0].position.xpos < distances['xpos_end_merginglane']:
                     print("update")
