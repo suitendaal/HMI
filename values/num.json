@@ -6,8 +6,8 @@
     "place_x": -2500,
     "place_y": 700,
     "zoomlevel": [2, 3],
-    "place_x_sign": 0.78,
-    "place_y_sign": 0.29
+    "place_x_sign": 0.75,
+    "place_y_sign": 0.32
   },
 
   "udp_data":

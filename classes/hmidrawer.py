@@ -1,4 +1,5 @@
 from tkinter import *
+import winsound
 import json
 
 
@@ -56,6 +57,7 @@ class HMIDrawer(Tk):
 
         # Plaats op beeldscherm
         geometry = "+" + str(num["canvas"]["place_x"]) + "+" + str(num["canvas"]["place_y"]) # -2500 en 700 voor grote tv
+        # geometry = "+" + str(400) + "+" + str(200)
         self.geometry(geometry)
         self.lift()
 
@@ -87,7 +89,10 @@ class HMIDrawer(Tk):
 
     def initializeSpeedsign(self):
         # Choose image
-        self.speedsignimage = PhotoImage(file='resources/snelheidsbord.png')
+        self.speedsignimage = PhotoImage(file='resources/snelheidsbord2.png')
+
+        self.speedsignimage = self.speedsignimage.zoom(1)
+        self.speedsignimage = self.speedsignimage.subsample(3)
 
         # zoom the image
         self.speedsignimage = self.speedsignimage.zoom(num["canvas"]["zoomlevel"][0])
@@ -121,13 +126,16 @@ class HMIDrawer(Tk):
     def showError(self):
         pass
 
-    def plotGap(self, distance):
+    def plotGap(self, gap):
         ycompensation = 30
         
         self.canvasleft.delete("all")
         self.update()
+        distance = gap.rel_distance*1
+        # TODO maak deze shit bois
+
         if distance > self.canvasleft.winfo_height() / 2 - ycompensation:
-            distance = self.canvasleft.winfo_height() / 2 - ycompensation
+            distance = self.canvasleft.winfo_height() / 2 - ycompensation #klopt niet
         elif distance < -self.canvasleft.winfo_height() / 2 - ycompensation:
             distance = -self.canvasleft.winfo_height() / 2 - ycompensation
 
@@ -142,3 +150,9 @@ class HMIDrawer(Tk):
         y1 = middle_y + radius
 
         self.gap = self.canvasleft.create_oval(x0, y0, x1, y1, fill=colors["truck"])
+        # self.gap = self.canvasleft.create_oval(20, 20, 40, 40, fill=colors["truck"])
+
+    def plotError(self):
+        winsound.Beep(2500, 1000)
+
+        pass

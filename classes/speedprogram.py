@@ -38,7 +38,8 @@ class SpeedProgram(object):
                     0].position.xpos < distances['xpos_end_merginglane']:
                     print("update")
                     gap = Gap(0)
-                    gap.rel_distance = 0
+                    main_vehicle = Vehicle(0)
+                    gap.rel_distance = gap.xpos()-main_vehicle.position.xpos
                     self.plotGap(gap)
                 #     self.plotGap(self.datamanager.gap)
 
@@ -54,4 +55,4 @@ class SpeedProgram(object):
         # self.hmi.showError()
 
     def plotGap(self, gap):
-        self.hmi.plotGap(gap.xpos())
+        self.hmi.plotGap(gap.rel_distance)
