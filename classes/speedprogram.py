@@ -37,10 +37,11 @@ class SpeedProgram(object):
                 if self.datamanager.gap is not None and distances['xpos_start_merginglane'] < self.datamanager.vehicles[
                     0].position.xpos < distances['xpos_end_merginglane']:
                     print("update")
-                    gap = Gap[0]
+                    # TODO Jeffrey heeft deze shit verneukt, zou je dit willen maken Sven?
                     main_vehicle = Vehicle[0]
+                    Gap()
                     gap.rel_distance = gap.xpos()-main_vehicle.position.xpos
-                    self.plotGap(gap)
+                    self.plotGap(gap.rel_distance)
                 #     self.plotGap(self.datamanager.gap)
 
                 # Show error.
