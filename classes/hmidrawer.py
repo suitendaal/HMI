@@ -35,6 +35,10 @@ class HMIDrawer(Tk):
         self.speedsign = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
         self.initializeSpeedsign()
 
+        # Run error function
+        # self.error = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
+        # self.plotError()
+
         # Set Text
         self.text = Text(self.baseFrame, bg=colors['white'], borderwidth=0, highlightthickness=0, font=('Helvetica 16 bold'), height=1, width=4)
         self.initializeText()
@@ -56,8 +60,8 @@ class HMIDrawer(Tk):
         self.overrideredirect(True)
 
         # Plaats op beeldscherm
-        geometry = "+" + str(num["canvas"]["place_x"]) + "+" + str(num["canvas"]["place_y"]) # -2500 en 700 voor grote tv
-        # geometry = "+" + str(400) + "+" + str(200)
+        # geometry = "+" + str(num["canvas"]["place_x"]) + "+" + str(num["canvas"]["place_y"]) # -2500 en 700 voor grote tv
+        geometry = "+" + str(400) + "+" + str(200)
         self.geometry(geometry)
         self.lift()
 
@@ -153,6 +157,20 @@ class HMIDrawer(Tk):
         # self.gap = self.canvasleft.create_oval(20, 20, 40, 40, fill=colors["truck"])
 
     def plotError(self):
-        winsound.Beep(2500, 1000)
+        winsound.Beep(2000, 1000)
+
+        self.errorimage = PhotoImage(file='resources/waarschuwingsbord.png')
+
+        self.errorimage = self.errorimage.zoom(1)
+        self.errorimage = self.errorimage.subsample(6)
+
+        # zoom the image
+        self.errorimage = self.errorimage.zoom(num["canvas"]["zoomlevel"][0])
+        self.errorimage = self.errorimage.subsample(num["canvas"]["zoomlevel"][1])
+
+        self.error.configure(image=self.errorimage)
+
+        self.error.place(relx=num["canvas"]["place_x_error"], rely=num["canvas"]["place_y_error"], anchor=CENTER)
+        self.error = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
 
         pass
