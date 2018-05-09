@@ -93,7 +93,7 @@ class HMIDrawer(Tk):
 
     def initializeSpeedsign(self):
         # Choose image
-        self.speedsignimage = PhotoImage(file='resources/snelheidsbord2.png')
+        self.speedsignimage = PhotoImage(file='resources/snelheidsbord.png')
 
         self.speedsignimage = self.speedsignimage.zoom(1)
         self.speedsignimage = self.speedsignimage.subsample(3)
