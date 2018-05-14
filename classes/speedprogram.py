@@ -46,9 +46,12 @@ class SpeedProgram(object):
                         gap = self.datamanager.gap
                         gap.rel_distance = gap.xpos()-main_vehicle.position.xpos
                         self.plotGap(gap)
-                        print("update")
 
-                # Show error.
+                        # Show if you are next to gap.
+                        if abs(gap.rel_distance) < 5:
+                            self.showInHMI("VI")
+
+                    # Show error.
                 if self.level == 4 and self.datamanager.error:
                     self.showError()
 
