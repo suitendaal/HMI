@@ -33,7 +33,7 @@ class SpeedProgram(object):
                 # Plot advisory speed.
                 advisory_speed = self.datamanager.advisory_speed
                 if advisory_speed < 0:
-                    advisory_speed = 80
+                    advisory_speed = 100
                 self.showInHMI(advisory_speed)
 
                 # Plot gap.
@@ -48,7 +48,7 @@ class SpeedProgram(object):
                         self.plotGap(gap)
 
                         # Show if you are next to gap.
-                        if abs(gap.rel_distance) < 5:
+                        if abs(gap.rel_distance) < 8:
                             self.showInHMI("VI")
 
                     # Show error.
