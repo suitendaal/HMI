@@ -160,6 +160,7 @@ def checkIfError(old_vehicles, vehicles, old_gap, gap):
             return True
         # If gap is changed.
         elif old_gap.vehicle_front is not gap.vehicle_front or old_gap.vehicle_front.partnr != gap.vehicle_front.partnr:
+            # Old vehicle might be None
             if old_gap.vehicle_back != gap.vehicle_back or (old_gap.vehicle_back is not None and gap.vehicle_back is not
                                                             None and old_gap.vehicle_back.partnr !=
                                                             gap.vehicle_back.partnr):

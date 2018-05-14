@@ -13,6 +13,7 @@ class UDPSocket(socket.socket):
         (data, addr) = self.recvfrom(1024)
         values = []
         for i in range(0, len(data), 4):
+            # Float is 4 bytes.
             values.append(struct.unpack('>f', data[i:i+4])[0])
         self.data = values
         return values
