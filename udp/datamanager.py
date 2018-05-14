@@ -50,6 +50,10 @@ class DataManager(object):
         vehicles = [main_vehicle]
         vehicles.extend(other_vehicles)
 
+        print(" main vehicle" + str(main_vehicle.type.carlength))
+
+# + "  " + str(main_vehicle.time_to_inter(main_vehicle.disToInter())) + "  "+str(main_vehicle.position.xpos))
+
         return vehicles, roads, variables
 
     def getMainVehicle(self, data):
