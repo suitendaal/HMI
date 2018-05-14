@@ -33,7 +33,7 @@ class SpeedProgram(object):
                 # Plot advisory speed.
                 advisory_speed = self.datamanager.advisory_speed
                 if advisory_speed < 0:
-                    advisory_speed = 100
+                    advisory_speed = 80
                 self.showInHMI(advisory_speed)
 
                 # Plot gap.
