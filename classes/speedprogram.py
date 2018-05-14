@@ -12,7 +12,7 @@ class SpeedProgram(object):
 
         self.level = level
 
-        self.socket = UDPSocket((servervalues['ip_address'], servervalues['port']))
+        self.socket = UDPSocket((server_values['ip_address'], server_values['port']))
         self.datamanager = DataManager(self.socket)
 
     def start(self):

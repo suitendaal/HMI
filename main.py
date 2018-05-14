@@ -15,7 +15,7 @@ def main():
 
     program.start()
     #while True:
-     #   window.show()
+    #   window.show()
 
     
 if __name__ == '__main__':

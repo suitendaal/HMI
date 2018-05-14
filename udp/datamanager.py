@@ -3,7 +3,7 @@ from classes.vehicle_STsoftware import *
 
 
 values = json.load(open('values/num.json'))['udp_data']
-servervalues = values['server']['dspace']
+server_values = values['server']['dspace']
 
 
 class DataManager(object):
