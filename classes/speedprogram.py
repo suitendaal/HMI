@@ -23,7 +23,7 @@ class SpeedProgram(object):
         while self.repeat:
             data = self.socket.get_data()
 
-            if data is not None and index == 5:
+            if data is not None and index == 1000:
                 index = 0
 
                 self.datamanager.start(data)
