@@ -47,7 +47,7 @@ class HMIDrawer(Tk):
 
     def initializeText(self):
         self.text.place(relx=num["canvas"]["place_x_sign"], rely=num["canvas"]["place_y_sign"], anchor=CENTER)
-        self.text.insert(END, "100")
+        self.text.insert(END, "80")
 
     def setText(self, text):
         self.text.delete(1.0, END)

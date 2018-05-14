@@ -16,7 +16,7 @@
   {
     "factor": 0.7,
 	"road_data": {
-	  "xpos_start_merginglane": -90,
+	  "xpos_start_merginglane": 0,
 	  "xpos_end_merginglane": 250
 	},
     "vehicle_values": {
