@@ -25,7 +25,7 @@ class SpeedProgram(object):
             data = self.socket.get_data()
             current_time = int(time.time() * 1000)
             difference_time = current_time - start_time
-            if data is not None and difference_time > 500:
+            if data is not None and difference_time > 2000:
                 start_time = int(time.time() * 1000)
 
                 self.datamanager.start(data)
