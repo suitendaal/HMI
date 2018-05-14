@@ -1,5 +1,6 @@
 from udp.datamanager import *
 from udp.udpsocket import *
+import time
 
 
 class SpeedProgram(object):
@@ -19,12 +20,13 @@ class SpeedProgram(object):
         self.getData()
 
     def getData(self):
-        index = 0
+        start_time = int(time.time() * 1000)
         while self.repeat:
             data = self.socket.get_data()
-
-            if data is not None and index == 100:
-                index = 0
+            current_time = int(time.time() * 1000)
+            difference_time = current_time - start_time
+            if data is not None and difference_time > 500:
+                start_time = int(time.time() * 1000)
 
                 self.datamanager.start(data)
 
@@ -49,8 +51,6 @@ class SpeedProgram(object):
                 # Show error.
                 if self.level == 4 and self.datamanager.error:
                     self.showError()
-
-            index += 1
 
     def showInHMI(self, advisory_speed):
         self.hmi.setText(str(advisory_speed))
