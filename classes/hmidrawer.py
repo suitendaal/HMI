@@ -130,12 +130,12 @@ class HMIDrawer(Tk):
     def showError(self):
         pass
 
-    def plotGap(self, gap):
+    def plotGap(self, distance):
         ycompensation = 30
         
         self.canvasleft.delete("all")
         self.update()
-        distance = gap.rel_distance*1
+        distance = distance*1
         # TODO maak deze shit bois
 
         if distance > self.canvasleft.winfo_height() / 2 - ycompensation:
