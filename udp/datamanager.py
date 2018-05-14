@@ -23,11 +23,15 @@ class DataManager(object):
         old_gap = self.gap
 
         self.vehicles, self.roads, self.variables = self.manageData(data)
-        if self.vehicles is not None and len(self.vehicles) > 1 and self.vehicles[0].disToInter() < 500:
-            t_min, t_max = calculateTimeToIntersection(self.vehicles)
-            self.gap, self.advisory_speed = calculateAdvisorySpeed(self.vehicles, t_max)
-
-        self.error = checkIfError(old_vehicles, self.vehicles, old_gap, self.gap)
+        if self.vehicles is not None and len(self.vehicles) > 1 and self.vehicles[0].disToInter() < 500 and \
+                self.vehicles[0].position.ypos < 6.5:
+                t_min, t_max = calculateTimeToIntersection(self.vehicles)
+                self.gap, self.advisory_speed = calculateAdvisorySpeed(self.vehicles, t_max)
+                self.error = checkIfError(old_vehicles, self.vehicles, old_gap, self.gap)
+        else:
+            self.gap = None
+            self.advisory_speed = -1
+            self.error = False
 
     def manageData(self, data):
         # In matlab this function is called sort and vehicle convert
