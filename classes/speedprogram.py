@@ -25,7 +25,7 @@ class SpeedProgram(object):
 
             if data is not None and index == 5:
                 index = 0
-                
+
                 self.datamanager.start(data)
 
                 # Plot advisory speed.
