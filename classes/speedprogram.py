@@ -8,6 +8,7 @@ class SpeedProgram(object):
 
         self.hmi = hmi
         self.hmi.show()
+        self.gap = None
 
         self.level = level
 
@@ -32,17 +33,15 @@ class SpeedProgram(object):
 
                 # Plot gap.
                 distances = json.load(open('values/num.json'))['udp_data']['road_data']
-                # print("[ time to inter" + str(gap.time_to_inter) + ", " + str(self.datamanager.vehicles[0].position.xpos) + ", " + str(distances['xpos_end_merginglane']))
 
-                # if self.datamanager.gap is not None and distances['xpos_start_merginglane'] < self.datamanager.vehicles[
-                #     0].position.xpos < distances['xpos_end_merginglane']:
-                #     print("update")
-                #     # TODO Jeffrey heeft deze shit verneukt, zou je dit willen maken Sven?
-                #     main_vehicle = Vehicle[0]
-                #     Gap()
-                #     gap.rel_distance = gap.xpos()-main_vehicle.position.xpos
-                #     self.plotGap(gap.rel_distance)
-                #     self.plotGap(self.datamanager.gap)
+                if self.datamanager.gap is not None and distances['xpos_start_merginglane'] < self.datamanager.vehicles[
+                    0].position.xpos < distances['xpos_end_merginglane']:
+                    if self.datamanager.vehicles is not None and len(self.datamanager.vehicles) > 0 and self.datamanager.gap is not None:
+                        main_vehicle = self.datamanager.vehicles[0]
+                        gap = self.datamanager.gap
+                        gap.rel_distance = gap.xpos()-main_vehicle.position.xpos
+                        self.plotGap(gap)
+                        print("update")
 
                 # Show error.
                 if self.level == 4 and self.datamanager.error:
