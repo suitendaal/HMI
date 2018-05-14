@@ -19,10 +19,13 @@ class SpeedProgram(object):
         self.getData()
 
     def getData(self):
+        index = 0
         while self.repeat:
             data = self.socket.get_data()
-            # data = self.socket.data
-            if data is not None:
+
+            if data is not None and index == 5:
+                index = 0
+                
                 self.datamanager.start(data)
 
                 # Plot advisory speed.
@@ -46,6 +49,8 @@ class SpeedProgram(object):
                 # Show error.
                 if self.level == 4 and self.datamanager.error:
                     self.showError()
+
+            index += 1
 
     def showInHMI(self, advisory_speed):
         self.hmi.setText(str(advisory_speed))
