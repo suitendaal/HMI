@@ -55,7 +55,9 @@ def createGaps(vehicles, t_max):
 
 
 def findTargetGap(vehicle, gaps):
-    factor = json.load(open('values/num.json'))['udp_data']['factor']
+    gapspace = json.load(open('values/num.json'))['udp_data']['gapspace']
+    factor = gapspace['factor']
+    max_time = gapspace['time']
 
     # Sort gaps on distance from main vehicle.
     gaps.sort(key=lambda x: abs(x.disToInter() - vehicle.disToInter()))
@@ -66,12 +68,18 @@ def findTargetGap(vehicle, gaps):
         if gap.size() > factor * vehicle.type.carlength:
             target_gap = gap
             break
+        if gap.timeToInter() - vehicle.time_to_inter > max_time:
+            break
 
     # If no target gap is found, find the biggest.
     if target_gap is None:
         for gap in gaps:
             if target_gap is None or gap.size() > target_gap.size():
                 target_gap = gap
+            if gap.timeToInter() - vehicle.time_to_inter > max_time:
+                if target_gap is None:
+                    target_gap = gap
+                break
 
     return target_gap
 

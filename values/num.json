@@ -16,7 +16,10 @@
 
   "udp_data":
   {
-    "factor": 0.7,
+    "gapspace": {
+      "factor": 0.7,
+      "time": 5
+    },
 	"road_data": {
 	  "xpos_start_merginglane": 0,
 	  "xpos_end_merginglane": 250
