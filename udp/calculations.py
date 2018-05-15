@@ -94,7 +94,7 @@ def advisorySpeed(target_gap, main_vehicle):
     advisory_speed = advisory_speed * 3.6
 
     # Round to 5.
-    advisory_speed = int(np.round(advisory_speed / 5) * 5)
+    # advisory_speed = int(np.round(advisory_speed / 5) * 5)
 
     return advisory_speed
 
