@@ -42,7 +42,7 @@ class SpeedProgram(object):
                     self.advisory_speeds.append(advisory_speed)
                     if len(self.advisory_speeds) > 3:
                         self.advisory_speeds.pop(0)
-                    self.showInHMI(np.mean(self.advisory_speeds))
+                    self.showInHMI(int(np.mean(self.advisory_speeds)))
 
                 # Plot gap.
                 distances = json.load(open('values/num.json'))['udp_data']['road_data']
@@ -52,12 +52,12 @@ class SpeedProgram(object):
                     if self.datamanager.vehicles is not None and len(self.datamanager.vehicles) > 0 and self.datamanager.gap is not None:
                         main_vehicle = self.datamanager.vehicles[0]
                         gap = self.datamanager.gap
-                        gap.rel_distance = gap.xpos()-main_vehicle.position.xpos
+                        gap.rel_distance = gap.xpos() - main_vehicle.position.xpos
                         # self.plotGap(gap)
 
                         # Show if you are next to gap.
                         if abs(gap.rel_distance) < 8:
-                            self.showInHMI("VI")
+                            self.merge()
 
                     # Show error.
                 if self.level == 4 and self.datamanager.error:
@@ -65,6 +65,9 @@ class SpeedProgram(object):
 
     def showInHMI(self, advisory_speed):
         self.hmi.setText(str(advisory_speed))
+
+    def merge(self):
+        self.showInHMI("VI")
 
     def showError(self):
         print("error")
