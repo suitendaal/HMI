@@ -137,7 +137,7 @@ class HMIDrawer(Tk):
         # TODO maak deze shit bois
 
         if distance > self.canvasleft.winfo_height() / 2 - ycompensation:
-            distance = self.canvasleft.winfo_height() / 2 - ycompensation #klopt niet
+            distance = self.canvasleft.winfo_height() / 2 - ycompensation
         elif distance < -self.canvasleft.winfo_height() / 2 - ycompensation:
             distance = -self.canvasleft.winfo_height() / 2 - ycompensation
 
