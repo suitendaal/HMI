@@ -20,6 +20,11 @@
       "factor": 0.7,
       "time": 5
     },
+    "advisory_speed_variables": {
+      "distance": 4,
+      "advisory_speed": 80,
+      "speed_difference": 10
+    },
 	"road_data": {
 	  "xpos_start_merginglane": 0,
 	  "xpos_end_merginglane": 250

@@ -8,6 +8,7 @@ class Gap(object):
         self.vehicle_front = vehicle_front
         self.rel_distance = 0
         self.time_to_inter = 0
+        self.speed_difference = 0
 
     def xpos(self):
         xpos_back = self.vehicle_back.position.xpos + self.vehicle_back.type.carlength / 2
@@ -34,3 +35,6 @@ class Gap(object):
         else:
             return self.time_to_inter
 
+    def speedDifference(self, speed):
+        self.speed_difference = abs(self.speed() - speed)
+        return self.speed_difference

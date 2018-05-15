@@ -47,7 +47,8 @@ class HMIDrawer(Tk):
 
     def initializeText(self):
         self.text.place(relx=num["canvas"]["place_x_sign"]+0.01, rely=num["canvas"]["place_y_sign"], anchor=CENTER)
-        self.text.insert(END, "80", "center")
+        standard_text = str(num['udp_data']['advisory_speed_variables']['advisory_speed'])
+        self.text.insert(END, standard_text, "center")
 
     def setText(self, text):
         self.text.delete(1.0, END)

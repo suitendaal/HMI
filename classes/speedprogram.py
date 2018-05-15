@@ -1,7 +1,10 @@
 from udp.datamanager import *
 from udp.udpsocket import *
 import time
-import numpy as np
+import json
+
+
+num = json.load(open('values/num.json'))
 
 
 class SpeedProgram(object):
@@ -36,9 +39,10 @@ class SpeedProgram(object):
                 # Plot advisory speed.
                 advisory_speed = self.datamanager.advisory_speed
                 if advisory_speed < 0:
-                    advisory_speed = 80
+                    advisory_speed = num['udp_data']['advisory_speed_variables']['advisory_speed']
                     self.showInHMI(advisory_speed)
                     self.advisory_speeds = []
+                    self.hideMergeCommand()
                 else:
                     self.advisory_speeds.append(advisory_speed)
                     if len(self.advisory_speeds) > 3:
@@ -60,8 +64,8 @@ class SpeedProgram(object):
                     gap.rel_distance = gap.xpos() - main_vehicle.position.xpos
                     # self.plotGap(gap)
 
+                    gap.speedDifference(main_vehicle.dynamics.velocity)
                     self.checkIfMerge(gap)
-
 
     def showInHMI(self, advisory_speed):
         self.hmi.setText(str(advisory_speed))
@@ -95,5 +99,8 @@ class SpeedProgram(object):
             self.hideMergeCommand()
 
     def nextToGap(self, gap):
-        succes = abs(gap.rel_distance) < 8
+        # TODO: doe het beter
+        distance = num['udp_data']['advisory_speed_variables']['distance']
+        speed_difference = num['udp_data']['advisory_speed_variables']['speed_difference']
+        succes = abs(gap.rel_distance) < distance and gap.speed_difference < speed_difference
         return succes
