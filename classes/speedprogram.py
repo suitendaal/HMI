@@ -102,5 +102,5 @@ class SpeedProgram(object):
         # TODO: doe het beter
         distance = num['udp_data']['advisory_speed_variables']['distance']
         speed_difference = num['udp_data']['advisory_speed_variables']['speed_difference']
-        succes = abs(gap.rel_distance) < distance and gap.speed_difference < speed_difference
+        succes = abs(gap.rel_distance) < distance  # and gap.speed_difference < speed_difference
         return succes
