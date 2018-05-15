@@ -37,7 +37,7 @@ class HMIDrawer(Tk):
         self.initializeSpeedsign()
 
         # Set Text
-        self.text = Text(self.baseFrame, bg=colors['white'], borderwidth=0, highlightthickness=0, font=('Helvetica 16 bold'), height=1, width=4)
+        self.text = Text(self.baseFrame, bg=colors['white'], borderwidth=0, highlightthickness=0, font=('Helvetica 16 bold'), height=1, width=3)
         self.initializeText()
 
         self.vehicles = []
@@ -46,12 +46,12 @@ class HMIDrawer(Tk):
         self.initializeMergingSign()
 
     def initializeText(self):
-        self.text.place(relx=num["canvas"]["place_x_sign"], rely=num["canvas"]["place_y_sign"], anchor=CENTER)
-        self.text.insert(END, "80")
+        self.text.place(relx=num["canvas"]["place_x_sign"]+0.01, rely=num["canvas"]["place_y_sign"], anchor=CENTER)
+        self.text.insert(END, "80", "center")
 
     def setText(self, text):
         self.text.delete(1.0, END)
-        self.text.insert(END, text)
+        self.text.insert(END, text, "center")
         self.update_idletasks()
         self.update()
 
@@ -157,7 +157,7 @@ class HMIDrawer(Tk):
         self.mergingImage = PhotoImage(file='resources/invoegbord.png')
 
         self.mergingImage = self.mergingImage.zoom(1)
-        self.mergingImage = self.mergingImage.subsample(3)
+        self.mergingImage = self.mergingImage.subsample(6)
 
         self.mergingsign.place(relx=num["canvas"]["place_x_mergingsign"], rely=num["canvas"]["place_y_mergingsign"],
                                anchor=CENTER)
