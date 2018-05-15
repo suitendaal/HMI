@@ -20,8 +20,8 @@ class Gap(object):
         return xpos_merginlane - self.xpos()
 
     def size(self):
-        xpos_back = self.vehicle_back.position.xpos + self.vehicle_back.type.carlength / 2
-        xpos_front = self.vehicle_front.position.xpos - self.vehicle_front.type.carlength / 2
+        xpos_back = self.vehicle_back.position.xpos  # + self.vehicle_back.type.carlength / 2
+        xpos_front = self.vehicle_front.position.xpos - 2 * self.vehicle_front.type.carlength / 2
         return abs(xpos_front - xpos_back)
 
     def speed(self):
