@@ -62,7 +62,7 @@ class SpeedProgram(object):
                     main_vehicle = self.datamanager.vehicles[0]
                     gap = self.datamanager.gap
                     gap.rel_distance = gap.xpos() - main_vehicle.position.xpos
-                    # self.plotGap(gap)
+                    self.plotGap(gap)
 
                     gap.speedDifference(main_vehicle.dynamics.velocity)
                     self.checkIfMerge(gap)
