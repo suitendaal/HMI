@@ -26,8 +26,8 @@
       "speed_difference": 10
     },
 	"road_data": {
-	  "xpos_start_merginglane": 0,
-	  "xpos_end_merginglane": 250
+	  "xpos_start_merginglane": -5,
+	  "xpos_end_merginglane": 260
 	},
     "vehicle_values": {
       "vehicle_amount": 16,
