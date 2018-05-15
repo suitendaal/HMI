@@ -83,7 +83,7 @@ class SpeedProgram(object):
         amount = 0
         total = 0
         for i in range(len(self.advisory_speeds)):
-            total += (i + 1) * self.advisory_speeds(i)
+            total += (i + 1) * self.advisory_speeds[i]
             amount += i + 1
         return int(amount / total)
 
