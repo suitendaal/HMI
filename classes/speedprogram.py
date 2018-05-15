@@ -68,6 +68,12 @@ class SpeedProgram(object):
                     gap.speedDifference(main_vehicle.dynamics.velocity)
                     self.checkIfMerge(gap)
 
+                else:
+                    self.hideGap()
+
+            else:
+                self.hideGap()
+
     def showInHMI(self, advisory_speed):
         self.hmi.setText(str(advisory_speed))
 
@@ -81,9 +87,11 @@ class SpeedProgram(object):
         print("error")
         self.hmi.showError()
 
+    def hideGap(self):
+        self.hmi.hideGap()
+
     def plotGap(self, gap):
         self.hmi.plotGap(gap.rel_distance)
-        # self.hmi.plotGap(0)
 
     def advisorySpeed(self):
         amount = 0

@@ -128,11 +128,15 @@ class HMIDrawer(Tk):
     def addVehicles(self, vehicles):
         self.vehicles.extend(vehicles)
 
-    def plotGap(self, distance):
-        ycompensation = 30
-        
+    def hideGap(self):
         self.canvasleft.delete("all")
         self.update()
+
+    def plotGap(self, distance):
+        ycompensation = 30
+
+        self.hideGap()
+
         distance = distance*1
         # TODO maak deze shit bois
 
