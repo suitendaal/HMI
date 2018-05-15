@@ -26,7 +26,7 @@ def calculateTimeToIntersection(vehicles):
     t_max = timeToInter(vehicle, max_acc)
 
     # Time to inter with current speed and acceleration.
-    vehicle.time_to_inter = timeToInter(vehicle, vehicle.dynamics.acc)
+    vehicle.time_to_inter = t_max  # timeToInter(vehicle, vehicle.dynamics.acc)
 
     speed_at_inter = vehicle.dynamics.velocity + vehicle.dynamics.acc * vehicle.time_to_inter
     if speed_at_inter == 0:
