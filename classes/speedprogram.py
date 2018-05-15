@@ -85,7 +85,7 @@ class SpeedProgram(object):
         for i in range(len(self.advisory_speeds)):
             total += (i + 1) * self.advisory_speeds[i]
             amount += i + 1
-        return int(amount / total)
+        return int(float(total) / amount)
 
     def checkIfMerge(self, gap):
         # Show if you are next to gap.
