@@ -1,6 +1,7 @@
 from udp.datamanager import *
 from udp.udpsocket import *
 import time
+import numpy as np
 
 
 class SpeedProgram(object):
@@ -10,6 +11,7 @@ class SpeedProgram(object):
         self.hmi = hmi
         self.hmi.show()
         self.gap = None
+        self.advisory_speeds = []
 
         self.level = level
 
@@ -34,7 +36,13 @@ class SpeedProgram(object):
                 advisory_speed = self.datamanager.advisory_speed
                 if advisory_speed < 0:
                     advisory_speed = 80
-                self.showInHMI(advisory_speed)
+                    self.showInHMI(advisory_speed)
+                    self.advisory_speeds = []
+                else:
+                    self.advisory_speeds.append(advisory_speed)
+                    if len(self.advisory_speeds) > 3:
+                        self.advisory_speeds.pop(0)
+                    self.showInHMI(np.mean(self.advisory_speeds))
 
                 # Plot gap.
                 distances = json.load(open('values/num.json'))['udp_data']['road_data']
