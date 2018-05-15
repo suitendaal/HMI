@@ -143,7 +143,7 @@ def calculateAdvisorySpeed(all_vehicles, t_max, gaps = None):
                                         vehicles[0].dynamics.velocity])
 
     if target_gap is not None:
-        target_gap.rel_distance = (main_vehicle.time_to_inter - target_gap.timeToInter()) * advisory_speed
+        target_gap.rel_distance = (main_vehicle.time_to_inter_back - target_gap.timeToInter()) * advisory_speed
 
     return target_gap, advisory_speed
 
