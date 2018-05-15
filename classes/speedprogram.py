@@ -25,13 +25,14 @@ class SpeedProgram(object):
         start_time = int(time.time() * 1000)
         while self.repeat:
             data = self.socket.get_data()
+
             current_time = int(time.time() * 1000)
             difference_time = current_time - start_time
+
+            self.datamanager.start(data)
+
             if data is not None and difference_time > 2000:
                 start_time = int(time.time() * 1000)
-
-                self.datamanager.start(data)
-
                 # Plot advisory speed.
                 advisory_speed = self.datamanager.advisory_speed
                 if advisory_speed < 0:
@@ -42,28 +43,25 @@ class SpeedProgram(object):
                     self.advisory_speeds.append(advisory_speed)
                     if len(self.advisory_speeds) > 3:
                         self.advisory_speeds.pop(0)
-                    self.showInHMI(int(np.mean(self.advisory_speeds)))
+                    self.showInHMI(self.advisorySpeed())
 
-                # Plot gap.
-                distances = json.load(open('values/num.json'))['udp_data']['road_data']
+            # Show error.
+            if self.level == 4 and self.datamanager.error:
+                self.showError()
 
-                if self.datamanager.gap is not None and distances['xpos_start_merginglane'] < self.datamanager.vehicles[
-                    0].position.xpos < distances['xpos_end_merginglane']:
-                    if self.datamanager.vehicles is not None and len(self.datamanager.vehicles) > 0 and self.datamanager.gap is not None:
-                        main_vehicle = self.datamanager.vehicles[0]
-                        gap = self.datamanager.gap
-                        gap.rel_distance = gap.xpos() - main_vehicle.position.xpos
-                        # self.plotGap(gap)
+            # Plot gap.
+            distances = json.load(open('values/num.json'))['udp_data']['road_data']
 
-                        # Show if you are next to gap.
-                        if abs(gap.rel_distance) < 8:
-                            self.mergeCommand()
-                        else:
-                            self.hideMergeCommand()
+            if self.datamanager.gap is not None and distances['xpos_start_merginglane'] < self.datamanager.vehicles[
+                0].position.xpos < distances['xpos_end_merginglane']:
+                if self.datamanager.vehicles is not None and len(self.datamanager.vehicles) > 0 and self.datamanager.gap is not None:
+                    main_vehicle = self.datamanager.vehicles[0]
+                    gap = self.datamanager.gap
+                    gap.rel_distance = gap.xpos() - main_vehicle.position.xpos
+                    # self.plotGap(gap)
 
-                    # Show error.
-                if self.level == 4 and self.datamanager.error:
-                    self.showError()
+                    self.checkIfMerge(gap)
+
 
     def showInHMI(self, advisory_speed):
         self.hmi.setText(str(advisory_speed))
@@ -80,3 +78,22 @@ class SpeedProgram(object):
 
     def plotGap(self, gap):
         self.hmi.plotGap(gap.rel_distance)
+
+    def advisorySpeed(self):
+        amount = 0
+        total = 0
+        for i in range(len(self.advisory_speeds)):
+            total += (i + 1) * self.advisory_speeds(i)
+            amount += i + 1
+        return int(amount / total)
+
+    def checkIfMerge(self, gap):
+        # Show if you are next to gap.
+        if self.nextToGap(gap):
+            self.mergeCommand()
+        else:
+            self.hideMergeCommand()
+
+    def nextToGap(self, gap):
+        succes = abs(gap.rel_distance) < 8
+        return succes
