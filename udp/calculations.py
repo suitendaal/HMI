@@ -137,7 +137,7 @@ def calculateAdvisorySpeed(all_vehicles, t_max, gaps = None):
 
     elif len(vehicles) > 0:
         target_gap = Gap(vehicles[0])
-        factor = json.load(open('values/num.json'))['udp_data']['factor']
+        factor = json.load(open('values/num.json'))['udp_data']['gapspace']['factor']
         target_gap.time_to_inter = max([main_vehicle.time_to_inter, vehicles[0].time_to_inter_back +
                                         factor * main_vehicle.type.carlength / 2 /
                                         vehicles[0].dynamics.velocity])
