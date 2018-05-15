@@ -137,7 +137,6 @@ def calculateAdvisorySpeed(all_vehicles, t_max, gaps = None):
     if target_gap is not None:
         target_gap.rel_distance = (main_vehicle.time_to_inter - target_gap.timeToInter()) * advisory_speed
 
-    print(target_gap.xpos())
     return target_gap, advisory_speed
 
 
@@ -159,7 +158,11 @@ def checkIfError(old_vehicles, vehicles, old_gap, gap):
         if gap is None:
             return True
         # If gap is changed.
-        elif old_gap.vehicle_back.partnr != gap.vehicle_back.partnr or old_gap.vehicle_front is not gap.vehicle_front or old_gap.vehicle_front.partnr != gap.vehicle_front.partnr:
-            return True
+        elif old_gap.vehicle_front is not gap.vehicle_front or old_gap.vehicle_front.partnr != gap.vehicle_front.partnr:
+            # Old vehicle might be None
+            if old_gap.vehicle_back != gap.vehicle_back or (old_gap.vehicle_back is not None and gap.vehicle_back is not
+                                                            None and old_gap.vehicle_back.partnr !=
+                                                            gap.vehicle_back.partnr):
+                return True
 
     return False

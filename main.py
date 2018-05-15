@@ -3,7 +3,7 @@ from classes.speedprogram import *
 from classes.gap import *
 from udp.calculations import *
 import sys
-
+import time
 
 def main():
     level = 3
@@ -15,8 +15,9 @@ def main():
 
     program.start()
     #while True:
-     #   window.show()
+    #   window.show()
 
-
+    
 if __name__ == '__main__':
     main()
+    time.sleep(1)
