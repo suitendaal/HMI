@@ -60,7 +60,8 @@ def findTargetGap(vehicle, gaps):
     max_time = gapspace['time']
 
     # Sort gaps on distance from main vehicle.
-    gaps.sort(key=lambda x: abs(x.disToInter() - vehicle.disToInter()))
+    # gaps.sort(key=lambda x: abs(x.disToInter() - vehicle.disToInter()))
+    gaps = gaps[::-1]
 
     # Find nearest target gap which is at least the vehicle space.
     target_gap = None
