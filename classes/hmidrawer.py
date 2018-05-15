@@ -60,8 +60,8 @@ class HMIDrawer(Tk):
         self.overrideredirect(True)
 
         # Plaats op beeldscherm
-        # geometry = "+" + str(num["canvas"]["place_x"]) + "+" + str(num["canvas"]["place_y"]) # -2500 en 700 voor grote tv
-        geometry = "+" + str(400) + "+" + str(200)
+        geometry = "+" + str(num["canvas"]["place_x"]) + "+" + str(num["canvas"]["place_y"]) # -2500 en 700 voor grote tv
+        # geometry = "+" + str(400) + "+" + str(200)
         self.geometry(geometry)
         self.lift()
 
