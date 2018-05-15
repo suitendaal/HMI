@@ -57,7 +57,9 @@ class SpeedProgram(object):
 
                         # Show if you are next to gap.
                         if abs(gap.rel_distance) < 8:
-                            self.merge()
+                            self.mergeCommand()
+                        else:
+                            self.hideMergeCommand()
 
                     # Show error.
                 if self.level == 4 and self.datamanager.error:
@@ -66,12 +68,15 @@ class SpeedProgram(object):
     def showInHMI(self, advisory_speed):
         self.hmi.setText(str(advisory_speed))
 
-    def merge(self):
-        self.showInHMI("VI")
+    def mergeCommand(self):
+        self.hmi.showMergingCommand()
+
+    def hideMergeCommand(self):
+        self.hmi.hideMergingCommand()
 
     def showError(self):
         print("error")
-        # self.hmi.showError()
+        self.hmi.showError()
 
     def plotGap(self, gap):
         self.hmi.plotGap(gap.rel_distance)

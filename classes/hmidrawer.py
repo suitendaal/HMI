@@ -6,6 +6,7 @@ import json
 colors = json.load(open('values/colors.json'))
 num = json.load(open('values/num.json'))
 
+
 class HMIDrawer(Tk):
 
     def __init__(self):
@@ -35,15 +36,14 @@ class HMIDrawer(Tk):
         self.speedsign = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
         self.initializeSpeedsign()
 
-        # Run error function
-        # self.error = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
-        # self.plotError()
-
         # Set Text
         self.text = Text(self.baseFrame, bg=colors['white'], borderwidth=0, highlightthickness=0, font=('Helvetica 16 bold'), height=1, width=4)
         self.initializeText()
 
         self.vehicles = []
+
+        self.mergingsign = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
+        self.initializeMergingSign()
 
     def initializeText(self):
         self.text.place(relx=num["canvas"]["place_x_sign"], rely=num["canvas"]["place_y_sign"], anchor=CENTER)
@@ -60,8 +60,8 @@ class HMIDrawer(Tk):
         self.overrideredirect(True)
 
         # Plaats op beeldscherm
-        geometry = "+" + str(num["canvas"]["place_x"]) + "+" + str(num["canvas"]["place_y"]) # -2500 en 700 voor grote tv
-        # geometry = "+" + str(400) + "+" + str(200)
+        # geometry = "+" + str(num["canvas"]["place_x"]) + "+" + str(num["canvas"]["place_y"]) # -2500 en 700 voor grote tv
+        geometry = "+" + str(400) + "+" + str(200)
         self.geometry(geometry)
         self.lift()
 
@@ -127,9 +127,6 @@ class HMIDrawer(Tk):
     def addVehicles(self, vehicles):
         self.vehicles.extend(vehicles)
 
-    def showError(self):
-        pass
-
     def plotGap(self, distance):
         ycompensation = 30
         
@@ -156,6 +153,25 @@ class HMIDrawer(Tk):
         self.gap = self.canvasleft.create_oval(x0, y0, x1, y1, fill=colors["truck"])
         # self.gap = self.canvasleft.create_oval(20, 20, 40, 40, fill=colors["truck"])
 
+    def initializeMergingSign(self):
+        self.mergingImage = PhotoImage(file='resources/invoegbord.png')
+
+        self.mergingImage = self.mergingImage.zoom(1)
+        self.mergingImage = self.mergingImage.subsample(3)
+
+        self.mergingsign.place(relx=num["canvas"]["place_x_mergingsign"], rely=num["canvas"]["place_y_mergingsign"],
+                               anchor=CENTER)
+
+    def showMergingCommand(self):
+        self.mergingsign.configure(image=self.mergingImage)
+        self.update_idletasks()
+        self.update()
+
+    def hideMergingCommand(self):
+        self.mergingsign.configure(image="")
+        self.update_idletasks()
+        self.update()
+
     def plotError(self):
         winsound.Beep(2000, 1000)
 
@@ -173,4 +189,3 @@ class HMIDrawer(Tk):
         self.error.place(relx=num["canvas"]["place_x_error"], rely=num["canvas"]["place_y_error"], anchor=CENTER)
         self.error = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
 
-        pass
