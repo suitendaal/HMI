@@ -150,6 +150,11 @@ def calculateAdvisorySpeed(all_vehicles, t_max, gaps = None):
 
 
 def checkIfError(old_vehicles, vehicles, old_gap, gap):
+    partnrs = []
+    for vehicle in vehicles:
+        partnrs.append(vehicle.partnr)
+
+    print(partnrs)
 
     # Check if a vehicle has changed lane.
     if old_vehicles is not None:
