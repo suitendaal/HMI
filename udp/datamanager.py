@@ -68,7 +68,7 @@ class DataManager(object):
         vehicles = []
         for i in range(0, len(data), number):
             vehicle_data = data[i:i+number]
-            partnr = data[0]
+            partnr = int(data[0])
             vehicle_type = Type(vehicle_data[1], vehicle_data[2])
             position = Position(vehicle_data[3], vehicle_data[4], vehicle_data[5], vehicle_data[6], vehicle_data[7])
             dynamics = Dynamics(vehicle_data[8], vehicle_data[9])
