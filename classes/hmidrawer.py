@@ -117,6 +117,19 @@ class HMIDrawer(Tk):
         self.canvasleft.place(relx=134 / 882, rely=286 / 580, anchor=W)
         self.canvasleft.config(width=self.border.width() * 0.355, height=self.border.height() * 0.623)
 
+    def initializeError(self):
+        self.errorimage = PhotoImage(file='resources/waarschuwingsbord.png')
+
+        self.errorimage = self.errorimage.zoom(1)
+        self.errorimage = self.errorimage.subsample(6)
+
+        # zoom the image
+        self.errorimage = self.errorimage.zoom(num["canvas"]["zoomlevel"][0])
+        self.errorimage = self.errorimage.subsample(num["canvas"]["zoomlevel"][1])
+
+        self.error = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
+
+        self.error.place(relx=num["canvas"]["place_x_error"], rely=num["canvas"]["place_y_error"], anchor=CENTER)
 
     def show(self):
         self.update_idletasks()
@@ -180,18 +193,12 @@ class HMIDrawer(Tk):
     def showError(self):
         winsound.Beep(2000, 1000)
 
-        self.errorimage = PhotoImage(file='resources/waarschuwingsbord.png')
-
-        self.errorimage = self.errorimage.zoom(1)
-        self.errorimage = self.errorimage.subsample(6)
-
-        # zoom the image
-        self.errorimage = self.errorimage.zoom(num["canvas"]["zoomlevel"][0])
-        self.errorimage = self.errorimage.subsample(num["canvas"]["zoomlevel"][1])
-
-        self.error = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
         self.error.configure(image=self.errorimage)
+        self.update_idletasks()
+        self.update()
 
-        self.error.place(relx=num["canvas"]["place_x_error"], rely=num["canvas"]["place_y_error"], anchor=CENTER)
-
+    def hideError(self):
+        self.error.configure(image="")
+        self.update_idletasks()
+        self.update()
 

@@ -1,7 +1,5 @@
 from classes.hmidrawer import *
 from classes.speedprogram import *
-from classes.gap import *
-from udp.calculations import *
 import sys
 import time
 
@@ -14,8 +12,6 @@ def main():
     program = SpeedProgram(window, level)
 
     program.start()
-    #while True:
-    #   window.show()
 
     
 if __name__ == '__main__':
