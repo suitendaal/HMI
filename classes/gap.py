@@ -9,11 +9,11 @@ class Gap(object):
         self.rel_distance = 0
         self.time_to_inter = 0
         self.speed_difference = 0
-        self.front = vehicle_front.position.xpos - vehicle_front.type.carlength / 2
+        self.front = vehicle_front.back()
         if vehicle_back is None:
             self.back = -100
         else:
-            self.back = vehicle_back.positon.xpos + vehicle_back.type.carlength / 2
+            self.back = vehicle_back.front()
 
     def xpos(self):
         return (self.back + self.front) / 2
