@@ -1,5 +1,6 @@
 from tkinter import *
 import json
+import time
 
 
 colors = json.load(open('values/colors.json'))
@@ -44,6 +45,7 @@ class HMIDrawer(Tk):
         self.initializeMergingSign()
 
         self.initializeError()
+        self.startErrorTime = int(round(time.time() * 1000))
 
     def initializeText(self):
         self.text.place(relx=num["canvas"]["place_x_sign"]+0.01, rely=num["canvas"]["place_y_sign"], anchor=CENTER)
@@ -185,12 +187,17 @@ class HMIDrawer(Tk):
         self.update()
 
     def showError(self):
+        self.startErrorTime = int(round(time.time() * 1000))
         self.error.configure(image=self.errorimage)
         self.update()
 
     def hideError(self):
-        self.error.configure(image="")
-        self.update()
+        current_time = int(round(time.time() * 1000))
+        duration = current_time - self.startErrorTime
+        max_error_duration = num['udp_data']['hmi_variables']['errorduration']
+        if duration >= max_error_duration:
+            self.error.configure(image="")
+            self.update()
 
     def update(self):
         super().update_idletasks()
