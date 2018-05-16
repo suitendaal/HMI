@@ -45,6 +45,8 @@ class HMIDrawer(Tk):
         self.mergingsign = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
         self.initializeMergingSign()
 
+        self.initializeError()
+
     def initializeText(self):
         self.text.place(relx=num["canvas"]["place_x_sign"]+0.01, rely=num["canvas"]["place_y_sign"], anchor=CENTER)
         standard_text = str(num['udp_data']['advisory_speed_variables']['advisory_speed'])
