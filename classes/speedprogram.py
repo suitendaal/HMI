@@ -57,8 +57,10 @@ class SpeedProgram(object):
 
                 # Show error.
                 if self.level == 4 and self.datamanager.error:
+                    print("error")
                     self.showError()
                 elif self.level == 4 and not self.datamanager.error:
+                    print("no error")
                     self.hideError()
 
                 if self.datamanager.vehicles is not None and len(self.datamanager.vehicles) > 0 and self.datamanager.gap is not None:
