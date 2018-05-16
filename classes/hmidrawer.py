@@ -189,8 +189,9 @@ class HMIDrawer(Tk):
         self.errorimage = self.errorimage.zoom(num["canvas"]["zoomlevel"][0])
         self.errorimage = self.errorimage.subsample(num["canvas"]["zoomlevel"][1])
 
+        self.error = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
         self.error.configure(image=self.errorimage)
 
         self.error.place(relx=num["canvas"]["place_x_error"], rely=num["canvas"]["place_y_error"], anchor=CENTER)
-        self.error = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
+
 
