@@ -81,8 +81,6 @@ class SpeedProgram(object):
                     if self.level == 4:
                         self.hideError()
 
-                print(self.datamanager.vehicles[0].position.xpos)
-
     def showInHMI(self, advisory_speed):
         self.hmi.setText(str(advisory_speed))
 
@@ -120,8 +118,9 @@ class SpeedProgram(object):
             self.hideMergeCommand()
 
     def nextToGap(self, gap, vehicle):
-        # TODO: doe het beter
-        distance = num['udp_data']['advisory_speed_variables']['distance']
         speed_difference = num['udp_data']['advisory_speed_variables']['speed_difference']
-        succes = abs(gap.rel_distance) < distance  # and gap.speed_difference < speed_difference
-        return succes
+        success = vehicle.front() < gap.front and vehicle.back() > gap.back and gap.speed_difference < speed_difference
+        # distance = num['udp_data']['advisory_speed_variables']['distance']
+        # speed_difference = num['udp_data']['advisory_speed_variables']['speed_difference']
+        # success = abs(gap.rel_distance) < distance  # and gap.speed_difference < speed_difference
+        return success

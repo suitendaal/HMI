@@ -1,5 +1,4 @@
 from tkinter import *
-import winsound
 import json
 
 
@@ -30,7 +29,6 @@ class HMIDrawer(Tk):
 
         # place the target gap in the left canvas
         self.gaps = []
-        # self.plotGap(0)
 
         # Place the speedsign
         self.speedsign = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
@@ -55,7 +53,6 @@ class HMIDrawer(Tk):
     def setText(self, text):
         self.text.delete(1.0, END)
         self.text.insert(END, text, "center")
-        self.update_idletasks()
         self.update()
 
     def initializeBase(self):
@@ -134,7 +131,6 @@ class HMIDrawer(Tk):
         self.error.place(relx=num["canvas"]["place_x_error"], rely=num["canvas"]["place_y_error"], anchor=CENTER)
 
     def show(self):
-        self.update_idletasks()
         self.update()
 
     def addVehicle(self, vehicle):
@@ -153,7 +149,6 @@ class HMIDrawer(Tk):
         self.hideGap()
 
         distance = distance*1
-        # TODO maak deze shit bois
 
         if distance > self.canvasleft.winfo_height() / 2 - ycompensation:
             distance = self.canvasleft.winfo_height() / 2 - ycompensation
@@ -171,7 +166,6 @@ class HMIDrawer(Tk):
         y1 = middle_y + radius
 
         self.gap = self.canvasleft.create_oval(x0, y0, x1, y1, fill=colors["truck"])
-        # self.gap = self.canvasleft.create_oval(20, 20, 40, 40, fill=colors["truck"])
 
     def initializeMergingSign(self):
         self.mergingImage = PhotoImage(file='resources/invoegbord.png')
@@ -184,23 +178,20 @@ class HMIDrawer(Tk):
 
     def showMergingCommand(self):
         self.mergingsign.configure(image=self.mergingImage)
-        self.update_idletasks()
         self.update()
 
     def hideMergingCommand(self):
         self.mergingsign.configure(image="")
-        self.update_idletasks()
         self.update()
 
     def showError(self):
-        # winsound.Beep(2000, 1000)
-
         self.error.configure(image=self.errorimage)
-        self.update_idletasks()
         self.update()
 
     def hideError(self):
         self.error.configure(image="")
-        self.update_idletasks()
         self.update()
 
+    def update(self):
+        super().update_idletasks()
+        super().update()

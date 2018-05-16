@@ -36,6 +36,12 @@ class Vehicle(object):
         xpos_lane = values['xpos_end_merginglane']
         return xpos_lane - self.position.xpos
 
+    def front(self):
+        return self.position.xpos + self.type.carlength / 2
+
+    def back(self):
+        return self.position.xpos - self.type.carlength / 2
+
 
 class Type(object):
 

@@ -9,24 +9,28 @@ class Gap(object):
         self.rel_distance = 0
         self.time_to_inter = 0
         self.speed_difference = 0
+        self.front = vehicle_front.position.xpos - vehicle_front.type.carlength / 2
+        if vehicle_back is None:
+            self.back = -100
+        else:
+            self.back = vehicle_back.positon.xpos + vehicle_back.type.carlength / 2
 
     def xpos(self):
-        xpos_back = self.vehicle_back.position.xpos + self.vehicle_back.type.carlength / 2
-        xpos_front = self.vehicle_front.position.xpos - self.vehicle_front.type.carlength / 2
-        return (xpos_back + xpos_front) / 2
+        return (self.back + self.front) / 2
 
     def disToInter(self):
         xpos_merginlane = json.load(open('values/num.json'))['udp_data']['road_data']['xpos_end_merginglane']
         return xpos_merginlane - self.xpos()
 
     def size(self):
-        xpos_back = self.vehicle_back.position.xpos  # + self.vehicle_back.type.carlength / 2
-        xpos_front = self.vehicle_front.position.xpos - 2 * self.vehicle_front.type.carlength / 2
-        return abs(xpos_front - xpos_back)
+        return abs(self.front - self.back)
 
     def speed(self):
-        speed_back = self.vehicle_back.dynamics.velocity
         speed_front = self.vehicle_front.dynamics.velocity
+        if self.vehicle_back is None:
+            speed_back = speed_front
+        else:
+            speed_back = self.vehicle_back.dynamics.velocity
         return (speed_back + speed_front) / 2
 
     def timeToInter(self):
