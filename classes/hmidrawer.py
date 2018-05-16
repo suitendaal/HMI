@@ -193,7 +193,7 @@ class HMIDrawer(Tk):
         self.update()
 
     def showError(self):
-        winsound.Beep(2000, 1000)
+        # winsound.Beep(2000, 1000)
 
         self.error.configure(image=self.errorimage)
         self.update_idletasks()
