@@ -169,8 +169,10 @@ def checkIfError(old_vehicles, vehicles, old_gap, gap):
             print("gap disappeared")
             return True
         # If gap is changed.
-        elif old_gap.vehicle_front is not gap.vehicle_front or old_gap.vehicle_front.partnr != gap.vehicle_front.partnr:
+        elif old_gap.vehicle_front.partnr != gap.vehicle_front.partnr:
             # Old vehicle might be None
+            print([old_gap.vehicle_back != gap.vehicle_back, old_gap.vehicle_back is not None, gap.vehicle_back is not
+                                            None, old_gap.vehicle_back.partnr != gap.vehicle_back.partnr])
             if old_gap.vehicle_back != gap.vehicle_back or (old_gap.vehicle_back is not None and gap.vehicle_back is not
                                                             None and old_gap.vehicle_back.partnr !=
                                                             gap.vehicle_back.partnr):
