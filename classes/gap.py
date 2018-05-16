@@ -1,4 +1,8 @@
 import json
+import os
+
+
+root = os.getcwd()
 
 
 class Gap(object):
@@ -19,7 +23,7 @@ class Gap(object):
         return (self.back + self.front) / 2
 
     def disToInter(self):
-        xpos_merginlane = json.load(open('values/num.json'))['udp_data']['road_data']['xpos_end_merginglane']
+        xpos_merginlane = json.load(open(root + '\\values\\num.json'))['udp_data']['road_data']['xpos_end_merginglane']
         return xpos_merginlane - self.xpos()
 
     def size(self):

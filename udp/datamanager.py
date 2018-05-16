@@ -2,7 +2,7 @@ from udp.calculations import *
 from classes.vehicle_STsoftware import *
 
 
-values = json.load(open('values/num.json'))['udp_data']
+values = json.load(open(root + '\\values\\num.json'))['udp_data']
 server_values = values['server']['dspace']
 
 

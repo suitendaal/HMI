@@ -1,7 +1,9 @@
 import json
+import os
 
 
-values = json.load(open('values/num.json'))['udp_data']['road_data']
+root = os.getcwd()
+values = json.load(open(root + '\\values\\num.json'))['udp_data']['road_data']
 
 
 class Vehicle(object):

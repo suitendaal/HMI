@@ -1,6 +1,10 @@
 import numpy as np
 from classes.gap import *
 import json
+import os
+
+
+root = os.getcwd()
 
 
 def timeToInter(vehicle, acc):
@@ -55,7 +59,7 @@ def createGaps(vehicles, t_max):
 
 
 def findTargetGap(vehicle, gaps):
-    gapspace = json.load(open('values/num.json'))['udp_data']['gapspace']
+    gapspace = json.load(open(root + '\\values\\num.json'))['udp_data']['gapspace']
     factor = gapspace['factor']
     max_time = gapspace['time']
 
@@ -138,7 +142,7 @@ def calculateAdvisorySpeed(all_vehicles, t_max, gaps = None):
 
     elif len(vehicles) > 0:
         target_gap = Gap(vehicles[0])
-        factor = json.load(open('values/num.json'))['udp_data']['gapspace']['factor']
+        factor = json.load(open(root + '\\values\\num.json'))['udp_data']['gapspace']['factor']
         target_gap.time_to_inter = max([main_vehicle.time_to_inter, vehicles[0].time_to_inter_back +
                                         factor * main_vehicle.type.carlength / 2 /
                                         vehicles[0].dynamics.velocity])

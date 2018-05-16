@@ -2,9 +2,11 @@ from udp.datamanager import *
 from udp.udpsocket import *
 import time
 import json
+import os
 
 
-num = json.load(open('values/num.json'))
+root = os.getcwd()
+num = json.load(open(root + '\\values\\num.json'))
 
 
 class SpeedProgram(object):

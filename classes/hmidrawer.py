@@ -1,10 +1,12 @@
 from tkinter import *
 import json
 import time
+import os
 
 
-colors = json.load(open('values/colors.json'))
-num = json.load(open('values/num.json'))
+root = os.getcwd()
+colors = json.load(open(root + '\\values\\colors.json'))
+num = json.load(open(root + '\\values\\num.json'))
 
 
 class HMIDrawer(Tk):

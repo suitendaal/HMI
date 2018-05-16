@@ -1,8 +1,11 @@
 import numpy as np
 from classes.environment import Environment
 import json
+import os
 
-colors = json.load(open('values/colors.json'))
+
+root = os.getcwd()
+colors = json.load(open(root + '\\values\\colors.json'))
 
 
 class Vehicle(Environment):
