@@ -67,11 +67,11 @@ class SpeedProgram(object):
                     main_vehicle = self.datamanager.vehicles[0]
                     gap = self.datamanager.gap
                     gap.rel_distance = gap.xpos() - main_vehicle.position.xpos
-                    # if difference_time > 2000:
+
                     self.plotGap(gap)
 
                     gap.speedDifference(main_vehicle.dynamics.velocity)
-                    self.checkIfMerge(gap)
+                    self.checkIfMerge(gap, main_vehicle)
 
                 else:
                     self.hideGap()
@@ -79,6 +79,7 @@ class SpeedProgram(object):
             else:
                 self.hideGap()
                 self.hideError()
+                print("hide error")
 
     def showInHMI(self, advisory_speed):
         self.hmi.setText(str(advisory_speed))
@@ -109,14 +110,14 @@ class SpeedProgram(object):
             amount += i + 1
         return int(float(total) / amount)
 
-    def checkIfMerge(self, gap):
+    def checkIfMerge(self, gap, vehicle):
         # Show if you are next to gap.
-        if self.nextToGap(gap):
+        if self.nextToGap(gap, vehicle):
             self.mergeCommand()
         else:
             self.hideMergeCommand()
 
-    def nextToGap(self, gap):
+    def nextToGap(self, gap, vehicle):
         # TODO: doe het beter
         distance = num['udp_data']['advisory_speed_variables']['distance']
         speed_difference = num['udp_data']['advisory_speed_variables']['speed_difference']
