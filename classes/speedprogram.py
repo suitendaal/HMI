@@ -120,6 +120,6 @@ class SpeedProgram(object):
     def nextToGap(self, gap, vehicle):
         distance = num['udp_data']['advisory_speed_variables']['distance']
         speed_difference = num['udp_data']['advisory_speed_variables']['speed_difference']
-        success = vehicle.front() + distance < gap.front and vehicle.back() > gap.back and \
+        success = vehicle.front() < gap.front + distance and vehicle.back() > gap.back and \
                   gap.speed_difference < speed_difference
         return success
