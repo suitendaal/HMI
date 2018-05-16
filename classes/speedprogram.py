@@ -34,52 +34,54 @@ class SpeedProgram(object):
 
             self.datamanager.start(data)
 
-            if data is not None and difference_time > 2000:
-                start_time = int(time.time() * 1000)
-                # Plot advisory speed.
-                advisory_speed = self.datamanager.advisory_speed
-                if advisory_speed < 0:
-                    advisory_speed = num['udp_data']['advisory_speed_variables']['advisory_speed']
-                    self.showInHMI(advisory_speed)
-                    self.advisory_speeds = []
-                    self.hideMergeCommand()
-                else:
-                    self.advisory_speeds.append(advisory_speed)
-                    if len(self.advisory_speeds) > 3:
-                        self.advisory_speeds.pop(0)
-                    self.showInHMI(self.advisorySpeed())
+            if data is not None:
+                if difference_time > 2000:
+                    start_time = int(time.time() * 1000)
+                    # Plot advisory speed.
+                    advisory_speed = self.datamanager.advisory_speed
+                    if advisory_speed < 0:
+                        advisory_speed = num['udp_data']['advisory_speed_variables']['advisory_speed']
+                        self.showInHMI(advisory_speed)
+                        self.advisory_speeds = []
+                        self.hideMergeCommand()
+                    else:
+                        self.advisory_speeds.append(advisory_speed)
+                        if len(self.advisory_speeds) > 3:
+                            self.advisory_speeds.pop(0)
+                        self.showInHMI(self.advisorySpeed())
 
-            # Plot gap.
-            distances = json.load(open('values/num.json'))['udp_data']['road_data']
+                # Plot gap.
+                distances = json.load(open('values/num.json'))['udp_data']['road_data']
 
-            if self.datamanager.gap is not None and distances['xpos_start_merginglane'] < self.datamanager.vehicles[
-                0].position.xpos < distances['xpos_end_merginglane']:
+                if self.datamanager.gap is not None and distances['xpos_start_merginglane'] < self.datamanager.vehicles[
+                    0].position.xpos < distances['xpos_end_merginglane']:
 
-                # Show error.
-                if self.level == 4 and self.datamanager.error:
-                    print("error")
-                    self.showError()
-                elif self.level == 4 and not self.datamanager.error:
-                    print("no error")
-                    self.hideError()
+                    # Show error.
+                    if self.level == 4:
+                        if self.datamanager.error:
+                            self.showError()
+                        else:
+                            self.hideError()
 
-                if self.datamanager.vehicles is not None and len(self.datamanager.vehicles) > 0 and self.datamanager.gap is not None:
-                    main_vehicle = self.datamanager.vehicles[0]
-                    gap = self.datamanager.gap
-                    gap.rel_distance = gap.xpos() - main_vehicle.position.xpos
+                    if self.datamanager.vehicles is not None and len(self.datamanager.vehicles) > 0 and self.datamanager.gap is not None:
+                        main_vehicle = self.datamanager.vehicles[0]
+                        gap = self.datamanager.gap
+                        gap.rel_distance = gap.xpos() - main_vehicle.position.xpos
 
-                    self.plotGap(gap)
+                        self.plotGap(gap)
 
-                    gap.speedDifference(main_vehicle.dynamics.velocity)
-                    self.checkIfMerge(gap, main_vehicle)
+                        gap.speedDifference(main_vehicle.dynamics.velocity)
+                        self.checkIfMerge(gap, main_vehicle)
+
+                    else:
+                        self.hideGap()
 
                 else:
                     self.hideGap()
+                    if self.level == 4:
+                        self.hideError()
 
-            else:
-                self.hideGap()
-                self.hideError()
-                print("hide error")
+                print(self.datamanager.vehicles[0].position.xpos)
 
     def showInHMI(self, advisory_speed):
         self.hmi.setText(str(advisory_speed))
