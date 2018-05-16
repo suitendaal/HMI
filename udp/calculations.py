@@ -174,7 +174,7 @@ def checkIfError(old_vehicles, vehicles, old_gap, gap):
             if old_gap.vehicle_back != gap.vehicle_back or (old_gap.vehicle_back is not None and gap.vehicle_back is not
                                                             None and old_gap.vehicle_back.partnr !=
                                                             gap.vehicle_back.partnr):
-                print("gap changed")
+                #print("gap changed")
                 return True
 
     print("error false")
