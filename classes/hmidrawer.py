@@ -177,7 +177,7 @@ class HMIDrawer(Tk):
         self.update_idletasks()
         self.update()
 
-    def plotError(self):
+    def showError(self):
         winsound.Beep(2000, 1000)
 
         self.errorimage = PhotoImage(file='resources/waarschuwingsbord.png')
