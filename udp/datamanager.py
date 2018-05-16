@@ -57,7 +57,7 @@ class DataManager(object):
         return vehicles, roads, variables
 
     def getMainVehicle(self, data):
-        partnr = data[0]
+        partnr = int(data[0])
         vehicle_type = Type(data[1], data[2])
         position = Position(data[3] + 2 - data[2] / 2, data[4], data[5], data[6], data[7])
         dynamics = Dynamics(data[8], data[9], data[10])
