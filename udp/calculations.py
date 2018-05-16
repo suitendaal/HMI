@@ -159,12 +159,14 @@ def checkIfError(old_vehicles, vehicles, old_gap, gap):
             if len(vehicle) > 0:
                 vehicle = vehicle[0]
                 if vehicle.position.lane == 0 and old_vehicle.position.lane != 0:
+                    print("changed lane")
                     return True
 
     # Check if gap has changed.
     if old_gap is not None:
         # If there is no new gap, gap has disappeared.
         if gap is None:
+            print("gap disappeared")
             return True
         # If gap is changed.
         elif old_gap.vehicle_front is not gap.vehicle_front or old_gap.vehicle_front.partnr != gap.vehicle_front.partnr:
@@ -172,6 +174,8 @@ def checkIfError(old_vehicles, vehicles, old_gap, gap):
             if old_gap.vehicle_back != gap.vehicle_back or (old_gap.vehicle_back is not None and gap.vehicle_back is not
                                                             None and old_gap.vehicle_back.partnr !=
                                                             gap.vehicle_back.partnr):
+                print("gap changed")
                 return True
 
+    print("error false")
     return False
