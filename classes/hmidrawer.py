@@ -27,7 +27,7 @@ class HMIDrawer(Tk):
             self.canvasright = Canvas(self.baseFrame, bg=colors['black'], highlightthickness=0)
         else:
             self.canvasright = Canvas(self.baseFrame, bg=colors['background'], highlightthickness=0)
-        self.initializeCanvasRight()
+        self.initializeCanvasRight(level)
 
         if level == 1:
             return
@@ -118,10 +118,14 @@ class HMIDrawer(Tk):
 
         self.speedsign.place(relx=num["canvas"]["place_x_sign"], rely=num["canvas"]["place_y_sign"], anchor=CENTER)
 
-    def initializeCanvasRight(self):
-        # Verplaats canvas naar rechts en naar beneden
-        self.canvasright.place(relx=749/882, rely=286/580, anchor=E)
-        self.canvasright.config(width=self.border.width() * 0.35, height=self.border.height() * 0.623)
+    def initializeCanvasRight(self, level):
+        if level == 1:
+            self.canvasright.place(relx=1/2, rely=286/580, anchor=E)
+            self.canvasright.config(width=self.border.width() * 0.623, height=self.border.height() * 0.623)
+        else:
+            # Verplaats canvas naar rechts en naar beneden
+            self.canvasright.place(relx=749/882, rely=286/580, anchor=E)
+            self.canvasright.config(width=self.border.width() * 0.35, height=self.border.height() * 0.623)
 
     def initializeCanvasLeft(self):
         # Verplaats canvas naar rechts en naar beneden
