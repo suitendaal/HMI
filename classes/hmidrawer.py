@@ -120,8 +120,8 @@ class HMIDrawer(Tk):
 
     def initializeCanvasRight(self, level):
         if level == 1:
-            self.canvasright.place(relx=1/2, rely=286/580, anchor=E)
-            self.canvasright.config(width=self.border.width() * 0.623, height=self.border.height() * 0.623)
+            self.canvasright.place(relx=1/2, rely=286/580, anchor=CENTER)
+            self.canvasright.config(width=self.border.width(), height=self.border.height() * 0.623)
         else:
             # Verplaats canvas naar rechts en naar beneden
             self.canvasright.place(relx=749/882, rely=286/580, anchor=E)
