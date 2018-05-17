@@ -36,14 +36,11 @@ class HMIDrawer(Tk):
         self.canvasleft = Canvas(self.baseFrame, bg=colors['transparent'], highlightthickness=0)
         self.initializeCanvasLeft()
 
-        # place the target gap in the left canvas
-        self.gaps = []
-
-        # Place the speedsign
-        self.speedsign = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
-        self.initializeSpeedsign()
-
         if level > 2:
+
+            # Place the speedsign
+            self.speedsign = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
+            self.initializeSpeedsign()
 
             # Set Text
             self.text = Text(self.baseFrame, bg=colors['white'], borderwidth=0, highlightthickness=0, font=('Helvetica 16 bold'), height=1, width=3)
