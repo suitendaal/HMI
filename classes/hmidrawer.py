@@ -19,19 +19,18 @@ class HMIDrawer(Tk):
         self.initializeBase()
 
         # Set background label, tom-tom image.
-        if level == 1:
-            self.backGround = Label(self.baseFrame, bg=colors['black'])
-        else:
-            self.backGround = Label(self.baseFrame, bg=colors['transparent'])
+        self.backGround = Label(self.baseFrame, bg=colors['transparent'])
         self.initializeBackground()
+
+        # Set right canvas.
+        if level == 1:
+            self.canvasright = Canvas(self.baseFrame, bg=colors['black'], highlightthickness=0)
+        else:
+            self.canvasright = Canvas(self.baseFrame, bg=colors['background'], highlightthickness=0)
+        self.initializeCanvasRight()
 
         if level == 1:
             return
-            print("1")
-
-        # Set right canvas.
-        self.canvasright = Canvas(self.baseFrame, bg=colors['background'], highlightthickness=0)
-        self.initializeCanvasRight()
 
         # Set left canvas.
         self.canvasleft = Canvas(self.baseFrame, bg=colors['transparent'], highlightthickness=0)
