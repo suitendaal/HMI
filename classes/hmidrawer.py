@@ -27,7 +27,7 @@ class HMIDrawer(Tk):
 
         if level == 1:
             return
-        print("1")
+            print("1")
 
         # Set right canvas.
         self.canvasright = Canvas(self.baseFrame, bg=colors['background'], highlightthickness=0)
