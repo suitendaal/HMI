@@ -11,7 +11,7 @@ num = json.load(open(root + '\\values\\num.json'))
 
 class HMIDrawer(Tk):
 
-    def __init__(self):
+    def __init__(self, level):
         super().__init__()
 
         # Set base frame.
@@ -19,8 +19,14 @@ class HMIDrawer(Tk):
         self.initializeBase()
 
         # Set background label, tom-tom image.
-        self.backGround = Label(self.baseFrame, bg=colors['transparent'])
+        if level == 1:
+            self.backGround = Label(self.baseFrame, bg=colors['black'])
+        else:
+            self.backGround = Label(self.baseFrame, bg=colors['transparent'])
         self.initializeBackground()
+
+        if level == 1:
+            return
 
         # Set right canvas.
         self.canvasright = Canvas(self.baseFrame, bg=colors['background'], highlightthickness=0)
@@ -37,17 +43,19 @@ class HMIDrawer(Tk):
         self.speedsign = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
         self.initializeSpeedsign()
 
-        # Set Text
-        self.text = Text(self.baseFrame, bg=colors['white'], borderwidth=0, highlightthickness=0, font=('Helvetica 16 bold'), height=1, width=3)
-        self.initializeText()
+        if level > 2:
 
-        self.vehicles = []
+            # Set Text
+            self.text = Text(self.baseFrame, bg=colors['white'], borderwidth=0, highlightthickness=0, font=('Helvetica 16 bold'), height=1, width=3)
+            self.initializeText()
 
-        self.mergingsign = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
-        self.initializeMergingSign()
+            self.vehicles = []
 
-        self.initializeError()
-        self.startErrorTime = int(round(time.time() * 1000))
+            self.mergingsign = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
+            self.initializeMergingSign()
+
+            self.initializeError()
+            self.startErrorTime = int(round(time.time() * 1000))
 
     def initializeText(self):
         self.text.place(relx=num["canvas"]["place_x_sign"]+0.01, rely=num["canvas"]["place_y_sign"], anchor=CENTER)

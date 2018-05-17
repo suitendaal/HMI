@@ -24,7 +24,11 @@ class SpeedProgram(object):
         self.datamanager = DataManager(self.socket)
 
     def start(self):
-        self.getData()
+        if self.level > 2:
+            self.getData()
+        else:
+            while self.repeat:
+                self.hmi.show()
 
     def getData(self):
         start_time = int(time.time() * 1000)

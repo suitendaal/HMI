@@ -8,7 +8,7 @@ def main():
     if len(sys.argv) == 2 and int(sys.argv[1]) in [3, 4]:
         level = int(sys.argv[1])
 
-    window = HMIDrawer()
+    window = HMIDrawer(level)
     program = SpeedProgram(window, level)
 
     program.start()
