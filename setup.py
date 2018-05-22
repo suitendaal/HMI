@@ -16,7 +16,7 @@ setup(
     options=options,
     version="1.0",
     description="Choose between level 1 to 4 to get different levels of HMI supporting systems",
-    executables=executables
+    executables=executables, requires=['numpy']
 )
 
 
