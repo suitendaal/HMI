@@ -103,10 +103,12 @@ class SpeedProgram(object):
         self.hmi.hideError()
 
     def hideGap(self):
-        self.hmi.hideGap()
+        # self.hmi.hideGap()
+        pass
 
     def plotGap(self, gap):
-        self.hmi.plotGap(gap.rel_distance)
+        # self.hmi.plotGap(gap.rel_distance)
+        pass
 
     def advisorySpeed(self):
         amount = 0
