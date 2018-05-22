@@ -24,7 +24,7 @@
       "time": 5
     },
     "advisory_speed_variables": {
-      "distance": 20,
+      "distance": 25,
       "advisory_speed": 80,
       "speed_difference": 10
     },
