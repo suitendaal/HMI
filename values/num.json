@@ -29,7 +29,7 @@
       "distance_back": 0,
       "distance_gap": -3,
       "advisory_speed": 80,
-      "speed_difference": 10
+      "speed_difference": 36
     },
 	"road_data": {
 	  "xpos_start_merginglane": 0,
