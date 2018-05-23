@@ -24,10 +24,10 @@
       "time": 5
     },
     "advisory_speed_variables": {
-      "distance1_front": -1,
-      "distance2_front": -3,
+      "distance1_front": 2,
+      "distance2_front": 0,
       "distance_back": 10,
-      "distance_gap": -1,
+      "distance_gap": -2,
       "advisory_speed": 80,
       "speed_difference": 72
     },
