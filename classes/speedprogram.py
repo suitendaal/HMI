@@ -69,7 +69,8 @@ class SpeedProgram(object):
                         else:
                             self.hideError()
 
-                    if self.datamanager.vehicles is not None and len(self.datamanager.vehicles) > 0 and self.datamanager.gap is not None:
+                    if self.datamanager.vehicles is not None and len(self.datamanager.vehicles) > 0 and \
+                            self.datamanager.gap is not None:
                         main_vehicle = self.datamanager.vehicles[0]
                         gap = self.datamanager.gap
                         gap.rel_distance = gap.xpos() - main_vehicle.position.xpos
@@ -81,8 +82,10 @@ class SpeedProgram(object):
 
                     else:
                         self.hideGap()
+                        self.hideMergeCommand()
 
                 else:
+                    self.hideMergeCommand()
                     self.hideGap()
                     if self.level == 4:
                         self.hideError()
