@@ -26,7 +26,7 @@
     "advisory_speed_variables": {
       "distance1_front": 0,
       "distance2_front": 0,
-      "distance_back": 0,
+      "distance_back": 3,
       "distance_gap": -3,
       "advisory_speed": 80,
       "speed_difference": 36
