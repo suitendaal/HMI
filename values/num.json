@@ -27,7 +27,7 @@
       "distance1_front": 10,
       "distance2_front": 5,
       "distance_back": -2,
-      "distance_gap": 5,
+      "distance_gap": 3,
       "advisory_speed": 80,
       "speed_difference": 10
     },
