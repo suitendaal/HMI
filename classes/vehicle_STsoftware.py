@@ -76,7 +76,7 @@ class MainVehicle(Vehicle):
         super(). __init__(partnr, vehicletype, position, dynamics)
         self.min_speed = 70 / 3.6
         self.max_acc = 0.23
-        self.max_speed = 100
+        self.max_speed = 85
 
 
 
