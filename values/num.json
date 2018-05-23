@@ -24,8 +24,8 @@
       "time": 5
     },
     "advisory_speed_variables": {
-      "distance1_front": 0,
-      "distance2_front": -2,
+      "distance1_front": -1,
+      "distance2_front": -3,
       "distance_back": 3,
       "distance_gap": -1,
       "advisory_speed": 80,
