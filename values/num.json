@@ -25,11 +25,11 @@
     },
     "advisory_speed_variables": {
       "distance1_front": -1,
-      "distance2_front": -3,
+      "distance2_front": -1,
       "distance_back": 3,
       "distance_gap": -1,
       "advisory_speed": 80,
-      "speed_difference": 136
+      "speed_difference": 36
     },
 	"road_data": {
 	  "xpos_start_merginglane": 0,
