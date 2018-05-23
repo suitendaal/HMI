@@ -126,13 +126,15 @@ class SpeedProgram(object):
             self.hideMergeCommand()
 
     def nextToGap(self, gap, vehicle):
-        distance1 = num['udp_data']['advisory_speed_variables']['distance1']
-        distance2 = num['udp_data']['advisory_speed_variables']['distance2']
+        distance1_front = num['udp_data']['advisory_speed_variables']['distance1_front']
+        distance2_front = num['udp_data']['advisory_speed_variables']['distance2_front']
+        distance_back = num['udp_data']['advisory_speed_variables']['distance_back']
         speed_difference = num['udp_data']['advisory_speed_variables']['speed_difference']
         if gap.speed_difference < speed_difference / 4:
-            success = vehicle.front() < gap.front + distance2 and vehicle.back() > gap.back and gap.speed_difference < \
-                      speed_difference
+            success = vehicle.front() < gap.front + distance2_front and vehicle.back() > gap.back and \
+                      gap.speed_difference < speed_difference
         else:
-            success = vehicle.front() < gap.front + distance1 and vehicle.back() > gap.back and gap.speed_difference < \
-                      speed_difference
+            success = vehicle.front() < gap.front + distance1_front and vehicle.back() > gap.back and \
+                      gap.speed_difference < speed_difference
+        success = success and vehicle.back() > gap.back - distance_back
         return success
