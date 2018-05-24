@@ -23,6 +23,7 @@ class SpeedProgram(object):
 
         self.socket = UDPSocket((server_values['ip_address'], server_values['port']))
         self.datamanager = DataManager(self.socket)
+        self.dot_color = colors['blue']
 
     def start(self):
         start_time = int(time.time() * 1000)
@@ -39,6 +40,7 @@ class SpeedProgram(object):
                 difference_time = current_time - start_time
 
                 start_analyzing = num['udp_data']['road_data']['start_analyzing']
+                start_merging_lane = num['udp_data']['road_data']['xpos_start_merginglane']
                 end_merging_lane = num['udp_data']['road_data']['xpos_end_merginglane']
 
                 if start_analyzing < vehicles[0].position.xpos < end_merging_lane:
@@ -47,7 +49,8 @@ class SpeedProgram(object):
                     else:
                         advisory_speed, gap = self.datamanager.calculateAdvisorySpeed()
 
-                    if (self.gap is None and self.level == 3) or self.level == 4:
+                    if (self.gap is None and self.level == 3 and vehicles[0].position.xpos < start_merging_lane)\
+                            or self.level == 4:
                         self.gap = gap
 
                     if difference_time > 2000:
@@ -62,23 +65,26 @@ class SpeedProgram(object):
                                 self.advisory_speeds.pop(0)
                                 self.showInHMI(self.advisorySpeed())
 
-                    if (self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not None:
+                    if start_merging_lane < vehicles[0].position.xpos < end_merging_lane and\
+                            (self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not None:
                         gap.rel_distance = gap.xpos() - vehicles[0].position.xpos
                         gap.speedDifference(vehicles[0].dynamics.velocity)
 
-                        dot_color = colors['blue']
-                        if self.level == 4 and self.datamanager.checkIfError():
-                            dot_color = colors['red']
+                        if self.level == 4 and (self.datamanager.checkIfError() or
+                                                (self.dot_color == colors['green'] and not self.nextToGap())):
+                            self.dot_color = colors['red']
                         elif self.nextToGap(gap, vehicles[0]):
-                            dot_color = colors['green']
-                        self.plotGap(gap, dot_color)
+                            self.dot_color = colors['green']
+                        self.plotGap(gap, self.dot_color)
                     else:
                         self.hideGap()
                 else:
                     self.advisory_speeds = []
                     self.hideGap()
+                    self.showInHMI("")
 
             self.hmi.show()
+            self.showInHMI("")
 
     #     if self.level > 2:
     #         self.getData()
