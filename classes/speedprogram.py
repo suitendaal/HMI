@@ -39,7 +39,7 @@ class SpeedProgram(object):
                 difference_time = current_time - start_time
 
                 start_analyzing = num['udp_data']['road_data']['start_analyzing']
-                end_merging_lane = num['udp_data']['road_data']['start_analyzing']
+                end_merging_lane = num['udp_data']['road_data']['xpos_end_merginglane']
 
                 if start_analyzing < vehicles[0].position.xpos < end_merging_lane:
                     if self.level == 3:

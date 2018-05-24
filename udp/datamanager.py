@@ -80,6 +80,7 @@ class DataManager(object):
         return vehicles
 
     def calculateAdvisorySpeed(self, gap=None):
+        print("calculate advisory speed")
         self.old_vehicles = self.vehicles
         self.old_gap = self.gap
         if self.vehicles is not None and len(self.vehicles) > 1 and self.vehicles[0].position.ypos < 6.5:
