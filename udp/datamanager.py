@@ -80,13 +80,12 @@ class DataManager(object):
         return vehicles
 
     def calculateAdvisorySpeed(self, gap=None):
-        if self.vehicles is None:
-            print("vehicles is None")
         self.old_vehicles = self.vehicles
         self.old_gap = self.gap
         if self.vehicles is not None and len(self.vehicles) > 1 and self.vehicles[0].position.ypos < 6.5:
                 t_min, t_max = calculateTimeToIntersection(self.vehicles)
                 self.gap, self.advisory_speed = calculateAdvisorySpeed(self.vehicles, t_max, gap=gap)
+                print("inside")
         else:
             self.gap = None
             self.advisory_speed = -1
