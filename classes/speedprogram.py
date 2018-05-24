@@ -61,21 +61,21 @@ class SpeedProgram(object):
                             if len(self.advisory_speeds) > 3:
                                 self.advisory_speeds.pop(0)
                                 self.showInHMI(self.advisorySpeed())
+
+                    if (self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not None:
+                        gap.rel_distance = gap.xpos() - vehicles[0].position.xpos
+                        gap.speedDifference(vehicles[0].dynamics.velocity)
+
+                        dot_color = colors['blue']
+                        if self.level == 4 and self.datamanager.checkIfError():
+                            dot_color = colors['red']
+                        elif self.nextToGap(gap, vehicles[0]):
+                            dot_color = colors['green']
+                        self.plotGap(gap, dot_color)
+                    else:
+                        self.hideGap()
                 else:
-                    gap = None
                     self.advisory_speeds = []
-
-                if (self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not None:
-                    gap.rel_distance = gap.xpos() - vehicles[0].position.xpos
-                    gap.speedDifference(vehicles[0].dynamics.velocity)
-
-                    dot_color = colors['blue']
-                    if self.level == 4 and self.datamanager.checkIfError():
-                        dot_color = colors['red']
-                    elif self.nextToGap(gap, vehicles[0]):
-                        dot_color = colors['green']
-                    self.plotGap(gap, dot_color)
-                else:
                     self.hideGap()
 
             self.hmi.show()
