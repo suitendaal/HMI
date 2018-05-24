@@ -65,6 +65,11 @@ class SpeedProgram(object):
                     gap = None
                     self.advisory_speeds = []
 
+                if gap is None:
+                    print("gap is None")
+                else:
+                    print("gap is not None")
+
                 if (self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not None:
                     gap.rel_distance = gap.xpos() - vehicles[0].position.xpos
                     gap.speedDifference(vehicles[0].dynamics.velocity)
