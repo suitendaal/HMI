@@ -90,7 +90,7 @@ class DataManager(object):
             self.gap = None
             self.advisory_speed = -1
 
-        return self.advisory_speed, gap
+        return self.advisory_speed, self.gap
 
     def checkIfError(self, old_vehicles=None, vehicles=None, old_gap=None, gap=None):
         if old_vehicles is None:
