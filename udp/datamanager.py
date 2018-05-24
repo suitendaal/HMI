@@ -16,22 +16,24 @@ class DataManager(object):
         self.advisory_speed = -1
         self.gap = None
 
-        self.error = False
+        self.gapChanged = False
+        self.laneChanged = False
+
+        self.old_vehicles = None
+        self.old_gap = None
 
     def start(self, data):
-        old_vehicles = self.vehicles
-        old_gap = self.gap
+        self.old_vehicles = self.vehicles
+        self.old_gap = self.gap
 
         self.vehicles, self.roads, self.variables = self.manageData(data)
         if self.vehicles is not None and len(self.vehicles) > 1 and self.vehicles[0].disToInter() < 500 and \
                 self.vehicles[0].position.ypos < 6.5:
                 t_min, t_max = calculateTimeToIntersection(self.vehicles)
                 self.gap, self.advisory_speed = calculateAdvisorySpeed(self.vehicles, t_max)
-                self.error = checkIfError(old_vehicles, self.vehicles, old_gap, self.gap)
         else:
             self.gap = None
             self.advisory_speed = -1
-            self.error = False
 
     def manageData(self, data):
         # In matlab this function is called sort and vehicle convert
@@ -51,10 +53,10 @@ class DataManager(object):
 
         main_vehicle = self.getMainVehicle(main_vehicle_data)
         other_vehicles = self.getOtherVehicles(other_vehicles_data, vehicle_variables)
-        vehicles = [main_vehicle]
-        vehicles.extend(other_vehicles)
+        self.vehicles = [main_vehicle]
+        self.vehicles.extend(other_vehicles)
 
-        return vehicles, roads, variables
+        return self.vehicles, roads, variables
 
     def getMainVehicle(self, data):
         partnr = int(data[0])
@@ -76,3 +78,27 @@ class DataManager(object):
             vehicle = Vehicle(partnr, vehicle_type, position, dynamics)
             vehicles.append(vehicle)
         return vehicles
+
+    def calculateAdvisorySpeed(self, vehicles, gap=None):
+        self.old_vehicles = self.vehicles
+        self.old_gap = self.gap
+        if self.vehicles is not None and len(self.vehicles) > 1 and self.vehicles[0].position.ypos < 6.5:
+                t_min, t_max = calculateTimeToIntersection(self.vehicles)
+                self.gap, self.advisory_speed = calculateAdvisorySpeed(self.vehicles, t_max, gap=gap)
+        else:
+            self.gap = None
+            self.advisory_speed = -1
+
+        return self.advisory_speed, gap
+
+    def checkIfError(self, old_vehicles=None, vehicles=None, old_gap=None, gap=None):
+        if old_vehicles is None:
+            old_vehicles = self.old_vehicles
+        if vehicles is None:
+            vehicles = self.vehicles
+        if old_gap is None:
+            old_gap = self.old_gap
+        if gap is None:
+            gap = self.gap
+
+        return checkIfError(old_vehicles, vehicles, old_gap, gap)

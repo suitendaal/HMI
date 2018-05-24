@@ -104,7 +104,7 @@ def advisorySpeed(target_gap, main_vehicle):
     return advisory_speed
 
 
-def calculateAdvisorySpeed(all_vehicles, t_max, gaps = None):
+def calculateAdvisorySpeed(all_vehicles, t_max, gap=None, gaps=None):
     main_vehicle = all_vehicles[0]
     vehicles = all_vehicles[1:]
 
@@ -124,13 +124,22 @@ def calculateAdvisorySpeed(all_vehicles, t_max, gaps = None):
 
     if (len(vehicles)) > 1:
 
-        # Create an array of gaps.
-        if gaps is None:
-            gaps = createGaps(vehicles, t_max)
+        if gap is None:
 
-        # Find target gap.
-        target_gap = findTargetGap(main_vehicle, gaps)
+            # Create an array of gaps.
+            if gaps is None:
+                gaps = createGaps(vehicles, t_max)
 
+            # Find target gap.
+            target_gap = findTargetGap(main_vehicle, gaps)
+
+        else:
+            target_gap = gap
+            advisory_speed = advisorySpeed(target_gap, main_vehicle)
+            if advisory_speed > main_vehicle.max_speed:
+                advisory_speed = -1
+                target_gap = None
+            return target_gap, advisory_speed
 
         # Calculate advisory speed
         if target_gap is not None:
@@ -138,7 +147,7 @@ def calculateAdvisorySpeed(all_vehicles, t_max, gaps = None):
 
             if advisory_speed > main_vehicle.max_speed:
                 gaps.remove(target_gap)
-                target_gap, advisory_speed = calculateAdvisorySpeed(all_vehicles, t_max, gaps)
+                target_gap, advisory_speed = calculateAdvisorySpeed(all_vehicles, t_max, gaps=gaps)
 
     elif len(vehicles) > 0:
         target_gap = Gap(vehicles[0])
@@ -154,7 +163,10 @@ def calculateAdvisorySpeed(all_vehicles, t_max, gaps = None):
 
 
 def checkIfError(old_vehicles, vehicles, old_gap, gap):
+    return changedLane(old_vehicles, vehicles) or gapChanged(old_gap, gap)
 
+
+def changedLane(old_vehicles, vehicles):
     # Check if a vehicle has changed lane.
     if old_vehicles is not None:
         for old_vehicle in old_vehicles:
@@ -164,18 +176,21 @@ def checkIfError(old_vehicles, vehicles, old_gap, gap):
                 vehicle = vehicle[0]
                 if vehicle.position.lane == 0 and old_vehicle.position.lane != 0:
                     return True
+    return False
 
+
+def gapChanged(gap1, gap2):
     # Check if gap has changed.
-    if old_gap is not None:
+    if gap1 is not None:
         # If there is no new gap, gap has disappeared.
-        if gap is None:
+        if gap2 is None:
             return True
         # If gap is changed.
-        elif old_gap.vehicle_front.partnr != gap.vehicle_front.partnr:
+        elif gap1.vehicle_front.partnr != gap2.vehicle_front.partnr:
             # Old vehicle might be None
-            if old_gap.vehicle_back != gap.vehicle_back or (old_gap.vehicle_back is not None and gap.vehicle_back is not
-                                                            None and old_gap.vehicle_back.partnr !=
-                                                            gap.vehicle_back.partnr):
+            if gap1.vehicle_back != gap2.vehicle_back or (gap1.vehicle_back is not None and gap2.vehicle_back is not
+                                                            None and gap1.vehicle_back.partnr !=
+                                                            gap2.vehicle_back.partnr):
                 return True
 
     return False

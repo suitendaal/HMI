@@ -156,7 +156,7 @@ class HMIDrawer(Tk):
         self.canvasleft.delete("all")
         self.update()
 
-    def plotGap(self, distance):
+    def plotGap(self, distance, color):
         ycompensation = 30
 
         self.hideGap()
@@ -178,7 +178,7 @@ class HMIDrawer(Tk):
         y0 = middle_y - radius
         y1 = middle_y + radius
 
-        self.gap = self.canvasleft.create_oval(x0, y0, x1, y1, fill=colors["truck"])
+        self.gap = self.canvasleft.create_oval(x0, y0, x1, y1, fill=color)
 
     def initializeMergingSign(self):
         self.mergingImage = PhotoImage(file='resources/invoegbord.png')

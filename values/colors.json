@@ -4,5 +4,8 @@
   "transparent": "#302929",
   "background": "#696969",
   "car": "#ff0000",
-  "truck": "#0c00ff"
+  "truck": "#0c00ff",
+  "red": "#f90000",
+  "green": "#2cc617",
+  "blue": "#2b2bff"
 }

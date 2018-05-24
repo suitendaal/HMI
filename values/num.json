@@ -20,7 +20,7 @@
       "errorduration": 1000
     },
     "gapspace": {
-      "factor": 0.7,
+      "factor": 1.2,
       "time": 5
     },
     "advisory_speed_variables": {
@@ -29,9 +29,11 @@
       "distance_back": 10,
       "distance_gap": -2,
       "advisory_speed": 80,
-      "speed_difference": 72
+      "speed_difference": 72,
+      "reaction_time": 500
     },
 	"road_data": {
+      "start_analyzing": -200,
 	  "xpos_start_merginglane": 0,
 	  "xpos_end_merginglane": 300
 	},
