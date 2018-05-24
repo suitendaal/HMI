@@ -65,7 +65,10 @@ class SpeedProgram(object):
                     gap = None
                     self.advisory_speeds = []
 
-                if self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap)) and gap is not None:
+                if (self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not None:
+                    gap.rel_distance = gap.xpos() - vehicles[0].position.xpos
+                    gap.speedDifference(vehicles[0].dynamics.velocity)
+
                     dot_color = colors['blue']
                     if self.level == 4 and self.datamanager.checkIfError():
                         dot_color = colors['red']
