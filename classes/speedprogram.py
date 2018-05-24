@@ -60,15 +60,10 @@ class SpeedProgram(object):
 
                             if len(self.advisory_speeds) > 3:
                                 self.advisory_speeds.pop(0)
-                                self.showInHMI(advisory_speed)
+                                self.showInHMI(self.advisorySpeed())
                 else:
                     gap = None
                     self.advisory_speeds = []
-
-                if gap is None:
-                    print("gap is None")
-                else:
-                    print("gap is not None")
 
                 if (self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not None:
                     gap.rel_distance = gap.xpos() - vehicles[0].position.xpos
@@ -172,11 +167,9 @@ class SpeedProgram(object):
 
     def hideGap(self):
         self.hmi.hideGap()
-        pass
 
     def plotGap(self, gap, color):
         self.hmi.plotGap(gap.rel_distance, color)
-        pass
 
     def advisorySpeed(self):
         amount = 0
