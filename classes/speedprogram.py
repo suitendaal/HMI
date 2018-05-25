@@ -53,8 +53,6 @@ class SpeedProgram(object):
                             or self.level == 4:
                         self.gap = gap
 
-                    print(advisory_speed)
-
                     if difference_time > 2000:
                         print("inside")
                         start_time = current_time
@@ -66,6 +64,7 @@ class SpeedProgram(object):
 
                             if len(self.advisory_speeds) > 3:
                                 self.advisory_speeds.pop(0)
+                            print("show")
                             self.showInHMI(self.advisorySpeed())
 
                     if start_merging_lane < vehicles[0].position.xpos < end_merging_lane and\
