@@ -64,7 +64,7 @@ class SpeedProgram(object):
 
                             if len(self.advisory_speeds) > 3:
                                 self.advisory_speeds.pop(0)
-                            print("show")
+                            print(self.advisorySpeed())
                             self.showInHMI(self.advisorySpeed())
 
                     if start_merging_lane < vehicles[0].position.xpos < end_merging_lane and\
@@ -84,16 +84,16 @@ class SpeedProgram(object):
                     self.advisory_speeds = []
                     self.hideGap()
                     self.showInHMI("")
-
+            else:
+                self.showInHMI("")
             self.hmi.show()
-            self.showInHMI("")
-
-        if self.level > 2:
-            self.getData()
-        else:
-            while self.repeat:
-                self.hmi.show()
-
+            
+    #     if self.level > 2:
+    #         self.getData()
+    #     else:
+    #         while self.repeat:
+    #             self.hmi.show()
+    #
     # def getData(self):
     #     start_time = int(time.time() * 1000)
     #     while self.repeat:
