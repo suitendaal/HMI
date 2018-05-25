@@ -76,6 +76,8 @@ class SpeedProgram(object):
                                 self.advisory_speeds.pop(0)
                             self.showInHMI(self.advisorySpeed())
 
+                    print(vehicles[0].position.ypos)
+
                     if start_merging_lane < vehicles[0].position.xpos < end_merging_lane and\
                             (self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not \
                             None and not self.error and vehicles[0].position.ypos < 6.5:
@@ -88,6 +90,7 @@ class SpeedProgram(object):
                         elif self.nextToGap(gap, vehicles[0]):
                             self.dot_color = colors['green']
                         self.plotGap(gap, self.dot_color)
+                        print("inside")
                     else:
                         self.hideGap()
                 else:
