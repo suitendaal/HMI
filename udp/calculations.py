@@ -103,6 +103,27 @@ def advisorySpeed(target_gap, main_vehicle):
 
     return advisory_speed
 
+def whereIsGap(all_vehicles, target_gap, tmax):
+    vehicles = all_vehicles[1:]
+
+    # Sort vehicles on time to inter in order from long to short.
+    vehicles.sort(key=lambda x: x.time_to_inter, reverse=True)
+
+    # Delete vehicles which are not in the right lane.
+    vehicles_sorted = [vehicle for vehicle in vehicles if vehicle.position.lane == 0 and (vehicle.time_to_inter > 0)]
+    vehicles = vehicles_sorted
+
+    # create all possible gaps
+    gaps = createGaps(vehicles, tmax)
+
+    for gap in gaps:
+        if gap.vehicle_back.partnr == target_gap.vehicle_back.partnr and gap.vehicle_front.partnr == target_gap.vehicle_front.partnr:
+            return gap
+
+    return None
+
+
+
 
 def calculateAdvisorySpeed(all_vehicles, t_max, gap=None, gaps=None):
     main_vehicle = all_vehicles[0]
@@ -162,7 +183,7 @@ def calculateAdvisorySpeed(all_vehicles, t_max, gap=None, gaps=None):
 
 
 def checkIfError(old_vehicles, vehicles, old_gap, gap):
-    return changedLane(old_vehicles, vehicles) or gapChanged(old_gap, gap)
+    return changedLane(old_vehicles[1:], vehicles[1:]) or gapChanged(old_gap, gap)
 
 
 def changedLane(old_vehicles, vehicles):

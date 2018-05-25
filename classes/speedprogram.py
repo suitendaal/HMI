@@ -45,7 +45,10 @@ class SpeedProgram(object):
 
                 if start_analyzing < vehicles[0].position.xpos < end_merging_lane:
                     if self.level == 3:
-                        advisory_speed, gap = self.datamanager.calculateAdvisorySpeed(vehicles, self.gap)
+                        if self.gap is None:
+                            advisory_speed, gap = self.datamanager.calculateAdvisorySpeed(vehicles)
+                        else:
+                            advisory_speed, gap = self.datamanager.calculateAdvisorySpeed3(vehicles, self.gap)
                     else:
                         advisory_speed, gap = self.datamanager.calculateAdvisorySpeed(vehicles)
 
@@ -87,7 +90,7 @@ class SpeedProgram(object):
             else:
                 self.showInHMI("")
             self.hmi.show()
-            
+
     #     if self.level > 2:
     #         self.getData()
     #     else:
