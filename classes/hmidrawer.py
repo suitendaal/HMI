@@ -161,7 +161,7 @@ class HMIDrawer(Tk):
 
         self.hideGap()
 
-        distance = distance * 2.5
+        distance = distance * 1.3
 
         if distance > self.canvasleft.winfo_height() / 2 - ycompensation:
             distance = self.canvasleft.winfo_height() / 2 - ycompensation
