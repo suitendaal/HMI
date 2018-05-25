@@ -171,12 +171,13 @@ class HMIDrawer(Tk):
         middle_x = self.canvasleft.winfo_width() / 2 - 25
         middle_y = self.canvasleft.winfo_height() / 2 - ycompensation - distance
 
-        radius = 5
+        width = 10
+        length = 30
 
-        x0 = middle_x - radius
-        x1 = middle_x + radius
-        y0 = middle_y - radius
-        y1 = middle_y + radius
+        x0 = middle_x - length / 2
+        x1 = middle_x + length / 2
+        y0 = middle_y - width / 2
+        y1 = middle_y + width / 2
 
         self.gap = self.canvasleft.create_oval(x0, y0, x1, y1, fill=color)
 
