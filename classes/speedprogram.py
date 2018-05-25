@@ -93,6 +93,10 @@ class SpeedProgram(object):
                     self.advisory_speeds = []
                     self.hideGap()
                     self.showInHMI("")
+
+                if self.error:
+                    self.advisory_speeds = []
+                    self.showInHMI("")
             else:
                 self.showInHMI("")
             self.hmi.show()
