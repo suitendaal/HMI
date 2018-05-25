@@ -66,7 +66,7 @@ class DataManager(object):
             if self.gap is None:
                 self.advisory_speed = -1
             else:
-                self.advisory_speed = calculateAdvisorySpeedToGap(self.vehicles, self.gap)
+                self.gap, self.advisory_speed = calculateAdvisorySpeedToGap(self.vehicles, self.gap)
 
         else:
             self.gap = None

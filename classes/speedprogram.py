@@ -66,7 +66,6 @@ class SpeedProgram(object):
 
                             if len(self.advisory_speeds) > 3:
                                 self.advisory_speeds.pop(0)
-                            print(self.advisorySpeed())
                             self.showInHMI(self.advisorySpeed())
 
                     if start_merging_lane < vehicles[0].position.xpos < end_merging_lane and\
