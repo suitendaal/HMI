@@ -130,12 +130,12 @@ class HMIDrawer(Tk):
         self.speedsign.place(relx=num["canvas"]["place_x_sign"], rely=num["canvas"]["place_y_sign"], anchor=CENTER)
 
         # 2e image
-        self.speedsignimage2 = PhotoImage(file='resources/snelheidsbord.png')
+        self.speedsignimage2 = PhotoImage(file='resources/speedo.jpg')
         self.speedsignimage2 = self.speedsignimage2.zoom(1).subsample(3)
         # zoom the image
         self.speedsignimage2 = self.speedsignimage2.zoom(num["canvas"]["zoomlevel"][0]).subsample(num["canvas"]["zoomlevel"][1])
         self.speedsign2.configure(image=self.speedsignimage2)
-        self.speedsign.place(relx=1 - num["canvas"]["place_x_sign"], rely=num["canvas"]["place_y_sign"], anchor=CENTER)
+        self.speedsign2.place(relx=num["canvas"]["place_x_mergingsign"], rely=num["canvas"]["place_y_sign"], anchor=CENTER)
 
     def initializeCanvasRight(self, level):
         if level == 1:
