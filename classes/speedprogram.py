@@ -53,6 +53,8 @@ class SpeedProgram(object):
                             or self.level == 4:
                         self.gap = gap
 
+                    print(advisory_speed)
+
                     if difference_time > 2000:
                         start_time = current_time
 
@@ -71,7 +73,7 @@ class SpeedProgram(object):
                         gap.speedDifference(vehicles[0].dynamics.velocity)
 
                         if self.level == 4 and (self.datamanager.checkIfError() or
-                                                (self.dot_color == colors['green'] and not self.nextToGap())):
+                                                (self.dot_color == colors['green'] and not self.nextToGap(self.gap, vehicles[0]))):
                             self.dot_color = colors['red']
                         elif self.nextToGap(gap, vehicles[0]):
                             self.dot_color = colors['green']
