@@ -100,7 +100,7 @@ class DataManager(object):
         if data[9] < 750:
             xpos = -data[9]
         else:
-            xpos = -data[5]
+            xpos = data[5]
         xpos -= data[2] / 2
 
         partnr = int(data[0])
@@ -118,7 +118,7 @@ class DataManager(object):
             if vehicle_data[9] < 750:
                 xpos = -vehicle_data[9]
             else:
-                xpos = -vehicle_data[5]
+                xpos = vehicle_data[5]
             xpos -= vehicle_data[2] / 2
 
             partnr = int(vehicle_data[0])
