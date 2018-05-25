@@ -168,16 +168,16 @@ class HMIDrawer(Tk):
         elif distance < -self.canvasleft.winfo_height() / 2 - ycompensation:
             distance = -self.canvasleft.winfo_height() / 2 - ycompensation
 
-        middle_x = self.canvasleft.winfo_width() / 2 - 25
+        middle_x = self.canvasleft.winfo_width() / 2 - 30
         middle_y = self.canvasleft.winfo_height() / 2 - ycompensation - distance
 
         width = 10
         length = 30
 
-        x0 = middle_x - length / 2
-        x1 = middle_x + length / 2
-        y0 = middle_y - width / 2
-        y1 = middle_y + width / 2
+        x0 = middle_x - width / 2
+        x1 = middle_x + width / 2
+        y0 = middle_y - length / 2
+        y1 = middle_y + length / 2
 
         self.gap = self.canvasleft.create_oval(x0, y0, x1, y1, fill=color)
 
