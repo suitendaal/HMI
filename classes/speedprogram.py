@@ -68,6 +68,7 @@ class SpeedProgram(object):
 
                         if advisory_speed < 0:
                             self.advisory_speeds = []
+                            self.showInHMI("")
                         else:
                             self.advisory_speeds.append(advisory_speed)
 
