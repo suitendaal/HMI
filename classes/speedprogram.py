@@ -169,8 +169,7 @@ class SpeedProgram(object):
     #                     self.hideError()
 
     def show_speed(self, velocity):
-        # TODO
-        pass
+        self.hmi.show_speed(str(velocity))
 
     def showInHMI(self, advisory_speed):
         self.hmi.setText(str(advisory_speed))
