@@ -38,6 +38,21 @@ class DataManager(object):
 
         self.error = checkIfError(self.old_vehicles, self.vehicles, self.old_gap, self.gap)
 
+    def calculateAdvisorySpeed(self, vehicles, gap=None):
+        self.old_vehicles = self.vehicles
+        self.old_gap = self.gap
+
+        self.vehicles = vehicles
+
+        if self.vehicles is not None and len(self.vehicles) > 1 and self.vehicles[0].position.ypos < 6.5:
+            t_min, t_max = calculateTimeToIntersection(self.vehicles)
+            self.gap, self.advisory_speed = calculateAdvisorySpeed(self.vehicles, t_max, gap=gap)
+        else:
+            self.gap = None
+            self.advisory_speed = -1
+
+        return self.advisory_speed, self.gap
+
     def manageData(self, data):
         # In matlab this function is called sort and vehicle convert
 
@@ -81,18 +96,6 @@ class DataManager(object):
             vehicle = Vehicle(partnr, vehicle_type, position, dynamics)
             vehicles.append(vehicle)
         return vehicles
-
-    def calculateAdvisorySpeed(self, gap=None):
-        self.old_vehicles = self.vehicles
-        self.old_gap = self.gap
-        if self.vehicles is not None and len(self.vehicles) > 1 and self.vehicles[0].position.ypos < 6.5:
-            t_min, t_max = calculateTimeToIntersection(self.vehicles)
-            self.gap, self.advisory_speed = calculateAdvisorySpeed(self.vehicles, t_max, gap=gap)
-        else:
-            self.gap = None
-            self.advisory_speed = -1
-
-        return self.advisory_speed, self.gap
 
     def checkIfError(self, old_vehicles=None, vehicles=None, old_gap=None, gap=None):
         if old_vehicles is None:
