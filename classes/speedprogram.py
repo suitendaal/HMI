@@ -220,4 +220,5 @@ class SpeedProgram(object):
         vehicle_front = vehicle.front() + vehicle.dynamics.velocity * reaction_time + vehicle.dynamics.acc * reaction_time ** 2
         vehicle_back = vehicle.back() + vehicle.dynamics.velocity * reaction_time + vehicle.dynamics.acc * reaction_time ** 2
 
+        print(str(gap_front) + ", " + str(vehicle_front))
         return vehicle_front < gap_front and vehicle_back > gap_back
