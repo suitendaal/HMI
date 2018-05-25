@@ -33,7 +33,7 @@
       "reaction_time": 500
     },
 	"road_data": {
-      "start_analyzing": -400,
+      "start_analyzing": -200,
 	  "xpos_start_merginglane": 0,
 	  "xpos_end_merginglane": 300
 	},
