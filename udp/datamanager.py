@@ -99,19 +99,18 @@ class DataManager(object):
     def getMainVehicle(self, data):
         partnr = int(data[0])
         vehicle_type = Type(data[1], data[2])
-        position = Position(data[3] + 2 - data[2] / 2, data[4], data[5], data[6], data[7])
+        position = Position(data[3], data[4], data[5], data[6], data[7])
         dynamics = Dynamics(data[8], data[9], data[10])
         vehicle = MainVehicle(partnr, vehicle_type, position, dynamics)
         return vehicle
 
     def getOtherVehicles(self, data, number):
-        distance_gap = values['advisory_speed_variables']['distance_gap']
         vehicles = []
         for i in range(0, len(data), number):
             vehicle_data = data[i:i+number]
             partnr = int(vehicle_data[0])
             vehicle_type = Type(vehicle_data[1], vehicle_data[2])
-            position = Position(vehicle_data[3] - distance_gap - data[2] / 2, vehicle_data[4], vehicle_data[5], vehicle_data[6], vehicle_data[7])
+            position = Position(vehicle_data[3], vehicle_data[4], vehicle_data[5], vehicle_data[6], vehicle_data[7])
             dynamics = Dynamics(vehicle_data[8], vehicle_data[9])
             vehicle = Vehicle(partnr, vehicle_type, position, dynamics)
             vehicles.append(vehicle)
