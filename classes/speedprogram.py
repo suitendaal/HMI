@@ -56,6 +56,7 @@ class SpeedProgram(object):
                     print(advisory_speed)
 
                     if difference_time > 2000:
+                        print("inside")
                         start_time = current_time
 
                         if advisory_speed < 0:
