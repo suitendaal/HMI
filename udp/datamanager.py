@@ -21,6 +21,7 @@ class DataManager(object):
 
         self.old_vehicles = None
         self.old_gap = None
+        self.error = False
 
     def start(self, data):
         self.old_vehicles = self.vehicles
@@ -34,6 +35,8 @@ class DataManager(object):
         else:
             self.gap = None
             self.advisory_speed = -1
+
+        self.error = checkIfError(self.old_vehicles, self.vehicles, self.old_gap, self.gap)
 
     def manageData(self, data):
         # In matlab this function is called sort and vehicle convert
