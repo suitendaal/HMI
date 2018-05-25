@@ -209,7 +209,7 @@ class SpeedProgram(object):
             self.hideMergeCommand()
 
     def nextToGap(self, gap, vehicle):
-        speed_difference = num['udp_data']['advisory_speed_variables']['speed_difference']
+        speed_difference = 100 * num['udp_data']['advisory_speed_variables']['speed_difference']
         return gap.speed_difference < speed_difference and self.prediction(gap, vehicle)
 
     def prediction(self, gap, vehicle):
