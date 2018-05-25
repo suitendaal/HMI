@@ -25,6 +25,9 @@ class SpeedProgram(object):
         self.datamanager = DataManager(self.socket)
         self.dot_color = colors['blue']
 
+        self.gap_toegewezen = False
+        self.error = False
+
     def start(self):
         start_time = int(time.time() * 1000)
         while self.repeat:
@@ -49,12 +52,16 @@ class SpeedProgram(object):
                             advisory_speed, gap = self.datamanager.calculateAdvisorySpeed(vehicles)
                         else:
                             advisory_speed, gap = self.datamanager.calculateAdvisorySpeed3(vehicles, self.gap)
+                            if self.gap_toegewezen and gap is None:
+                                self.error = True
                     else:
                         advisory_speed, gap = self.datamanager.calculateAdvisorySpeed(vehicles)
 
                     if (self.gap is None and self.level == 3 and vehicles[0].position.xpos < start_merging_lane)\
                             or self.level == 4:
                         self.gap = gap
+                        if self.level == 3:
+                            self.gap_toegewezen = True
 
                     if difference_time > 2000:
                         start_time = current_time
@@ -69,7 +76,8 @@ class SpeedProgram(object):
                             self.showInHMI(self.advisorySpeed())
 
                     if start_merging_lane < vehicles[0].position.xpos < end_merging_lane and\
-                            (self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not None:
+                            (self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not \
+                            None and not self.error:
                         gap.rel_distance = gap.xpos() - vehicles[0].position.xpos
                         gap.speedDifference(vehicles[0].dynamics.velocity)
 
