@@ -113,13 +113,14 @@ class DataManager(object):
     def getOtherVehicles(self, data, number):
         vehicles = []
         for i in range(0, len(data), number):
+            vehicle_data = data[i:i + number]
+
             if vehicle_data[9] < 750:
                 xpos = -vehicle_data[9]
             else:
                 xpos = -vehicle_data[5]
             xpos -= vehicle_data[2] / 2
 
-            vehicle_data = data[i:i+number]
             partnr = int(vehicle_data[0])
             vehicle_type = Type(vehicle_data[1], vehicle_data[2])
             position = Position(vehicle_data[3], xpos, vehicle_data[5], vehicle_data[6], vehicle_data[7])
