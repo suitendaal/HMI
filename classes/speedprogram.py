@@ -76,12 +76,7 @@ class SpeedProgram(object):
                                 self.advisory_speeds.pop(0)
                             self.showInHMI(self.advisorySpeed())
 
-                    print(start_merging_lane < vehicles[0].position.xpos < end_merging_lane and (self.level == 4 or
-                                                                                                 (self.level == 3 and
-                                                                                                  not
-                                                                                                  gapChanged(self.gap,
-                                                                                                             gap))) and
-                          gap is not None and not self.error and vehicles[0].position.ypos < 6.5)
+                    print(start_merging_lane < vehicles[0].position.xpos < end_merging_lane)
 
                     if start_merging_lane < vehicles[0].position.xpos < end_merging_lane and\
                             (self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not \
