@@ -64,7 +64,7 @@ class HMIDrawer(Tk):
         self.text.insert(END, standard_text, "center")
 
     def initializeSpeed(self):
-        self.speed.place(relx=num["canvas"]["place_x_speed"] + 0.01, rely=num["canvas"]["place_y_speed"], anchor=CENTER)
+        self.speed.place(relx=num["canvas"]["place_x_speed"], rely=num["canvas"]["place_y_speed"], anchor=CENTER)
         standard_text = str(num['udp_data']['advisory_speed_variables']['advisory_speed'])
         self.speed.insert(END, standard_text, "center")
 
