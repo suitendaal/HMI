@@ -78,7 +78,7 @@ class SpeedProgram(object):
 
                     if start_merging_lane < vehicles[0].position.xpos < end_merging_lane and\
                             (self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not \
-                            None and not self.error:
+                            None and not self.error and vehicles[0].position.ypos < 6.5:
                         gap.rel_distance = gap.xpos() - vehicles[0].position.xpos
                         gap.speedDifference(vehicles[0].dynamics.velocity)
 
