@@ -106,6 +106,10 @@ def advisorySpeed(target_gap, main_vehicle):
 def whereIsGap(all_vehicles, target_gap, tmax):
     vehicles = all_vehicles[1:]
 
+    # For every vehicle, calculate time to intersection.
+    for vehicle in vehicles:
+        vehicle.timeToInter()
+
     # Sort vehicles on time to inter in order from long to short.
     vehicles.sort(key=lambda x: x.time_to_inter, reverse=True)
 
