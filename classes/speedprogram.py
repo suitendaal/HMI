@@ -213,12 +213,12 @@ class SpeedProgram(object):
         return gap.speed_difference < speed_difference and self.prediction(gap, vehicle)
 
     def prediction(self, gap, vehicle):
-        reaction_time = num['udp_data']['advisory_speed_variables']['reaction_time']
+        reaction_time = num['udp_data']['advisory_speed_variables']['reaction_time'] / 1000.0
         gap_front = gap.front + reaction_time * gap.speed()
         gap_back = gap.back + reaction_time * gap.speed()
 
-        vehicle_front = vehicle.front() + vehicle.dynamics.velocity * reaction_time + vehicle.dynamics.acc * reaction_time ** 2
-        vehicle_back = vehicle.back() + vehicle.dynamics.velocity * reaction_time + vehicle.dynamics.acc * reaction_time ** 2
+        vehicle_front = vehicle.front() + vehicle.dynamics.velocity * reaction_time + 1/2 * vehicle.dynamics.acc * reaction_time ** 2
+        vehicle_back = vehicle.back() + vehicle.dynamics.velocity * reaction_time + 1/2 * vehicle.dynamics.acc * reaction_time ** 2
 
         print(str(gap_front) + ", " + str(vehicle_front))
         return vehicle_front < gap_front and vehicle_back > gap_back
