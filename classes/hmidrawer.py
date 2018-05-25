@@ -179,7 +179,7 @@ class HMIDrawer(Tk):
         y0 = middle_y - length / 2
         y1 = middle_y + length / 2
 
-        self.gap = self.canvasleft.create_oval(x0, y0, x1, y1, fill=color)
+        self.gap = self.canvasleft.create_rectangle(x0, y0, x1, y1, fill=color)
 
     def initializeMergingSign(self):
         self.mergingImage = PhotoImage(file='resources/invoegbord.png')
