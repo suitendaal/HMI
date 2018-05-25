@@ -8,6 +8,8 @@
     "zoomlevel": [2, 3],
     "place_x_sign": 0.75,
     "place_y_sign": 0.32,
+    "place_x_speed": 0.6,
+    "place_y_speed": 0.32,
     "place_x_error": 0.75,
     "place_y_error": 0.6,
     "place_x_mergingsign": 0.58,
