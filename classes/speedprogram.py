@@ -35,7 +35,7 @@ class SpeedProgram(object):
             vehicles, roads, variables = self.datamanager.manageData(data)
 
             if vehicles is not None and len(vehicles) > 0:
-                self.show_speed(vehicles[0].dynamics.velocity)
+                self.show_speed(int(3.6 * vehicles[0].dynamics.velocity))
 
             if self.level > 2:
 
