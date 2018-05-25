@@ -196,7 +196,7 @@ def calculateAdvisorySpeed(all_vehicles, t_max, gap=None, gaps=None):
 
 
 def checkIfError(old_vehicles, vehicles, old_gap, gap):
-    return changedLane(old_vehicles[1:], vehicles[1:]) or gapChanged(old_gap, gap)
+    return changedLane(old_vehicles, vehicles) or gapChanged(old_gap, gap)
 
 
 def changedLane(old_vehicles, vehicles):

@@ -139,6 +139,16 @@ class DataManager(object):
         if gap is None:
             gap = self.gap
 
-        return checkIfError(old_vehicles, vehicles, old_gap, gap)
+        if old_vehicles is not None and len(old_vehicles) > 1:
+            old_vehicles1 = old_vehicles[1:]
+        else:
+            old_vehicles1 = old_vehicles
+
+        if vehicles is not None and len(vehicles) > 1:
+            vehicles1 = vehicles[1:]
+        else:
+            vehicles1 = vehicles
+
+        return checkIfError(old_vehicles1, vehicles1, old_gap, gap)
 
 
