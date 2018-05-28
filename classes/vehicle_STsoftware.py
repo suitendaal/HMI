@@ -77,6 +77,7 @@ class MainVehicle(Vehicle):
         self.min_speed = 70 / 3.6
         self.max_acc = 0.23
         self.max_speed = 85
+        self.min_advisory = 60
 
 
 

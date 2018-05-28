@@ -74,7 +74,10 @@ class SpeedProgram(object):
 
                             if len(self.advisory_speeds) > 3:
                                 self.advisory_speeds.pop(0)
-                            self.showInHMI(self.advisorySpeed())
+                            speed_to_show = self.advisorySpeed()
+                            if speed_to_show < vehicles[0].min_advisory:
+                                speed_to_show = vehicles[0].min_advisory
+                            self.showInHMI(speed_to_show)
 
                     print(vehicles[0].position.xpos)
 
