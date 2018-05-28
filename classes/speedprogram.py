@@ -17,7 +17,6 @@ class SpeedProgram(object):
         self.hmi = hmi
         self.hmi.show()
         self.gap = None
-        self.advisory_speeds = []
 
         self.level = level
 
@@ -46,6 +45,9 @@ class SpeedProgram(object):
                 start_merging_lane = num['udp_data']['road_data']['xpos_start_merginglane']
                 end_merging_lane = num['udp_data']['road_data']['xpos_end_merginglane']
 
+                if vehicles[0].position.xpos < start_analyzing:
+                    default_speed = num['upd_data']['advisory_speed_variables']['advisory_speed']
+                    self.showInHMI(default_speed)
                 if start_analyzing < vehicles[0].position.xpos < end_merging_lane:
                     if self.level == 3:
                         if self.gap is None:
@@ -67,13 +69,8 @@ class SpeedProgram(object):
                         start_time = current_time
 
                         if advisory_speed < 0:
-                            self.advisory_speeds = []
                             self.showInHMI("")
                         else:
-                            self.advisory_speeds.append(advisory_speed)
-
-                            if len(self.advisory_speeds) > 3:
-                                self.advisory_speeds.pop(0)
                             speed_to_show = self.advisorySpeed()
                             if speed_to_show < vehicles[0].min_advisory:
                                 speed_to_show = vehicles[0].min_advisory
@@ -97,12 +94,10 @@ class SpeedProgram(object):
                     else:
                         self.hideGap()
                 else:
-                    self.advisory_speeds = []
                     self.hideGap()
                     self.showInHMI("")
 
                 if self.error:
-                    self.advisory_speeds = []
                     self.showInHMI("")
                     self.hideGap()
             self.hmi.show()
@@ -196,14 +191,6 @@ class SpeedProgram(object):
 
     def plotGap(self, gap, color):
         self.hmi.plotGap(gap.rel_distance, color)
-
-    def advisorySpeed(self):
-        amount = 0
-        total = 0
-        for i in range(len(self.advisory_speeds)):
-            total += (i + 1) * self.advisory_speeds[i]
-            amount += i + 1
-        return int(float(total) / amount)
 
     def checkIfMerge(self, gap, vehicle):
         # Show if you are next to gap.
