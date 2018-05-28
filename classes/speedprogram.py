@@ -46,7 +46,7 @@ class SpeedProgram(object):
                 end_merging_lane = num['udp_data']['road_data']['xpos_end_merginglane']
 
                 if vehicles[0].position.xpos < start_analyzing:
-                    default_speed = num['upd_data']['advisory_speed_variables']['advisory_speed']
+                    default_speed = num['udp_data']['advisory_speed_variables']['advisory_speed']
                     self.showInHMI(default_speed)
                 if start_analyzing < vehicles[0].position.xpos < end_merging_lane:
                     if self.level == 3:
