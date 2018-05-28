@@ -29,7 +29,7 @@ class HMIDrawer(Tk):
             self.canvasright = Canvas(self.baseFrame, bg=colors['background'], highlightthickness=0)
         self.initializeCanvasRight(level)
 
-        self.speedsign2 = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
+        self.speedsign2 = Label(self.baseFrame, bg=colors['black'], fg=colors['white'], borderwidth=0)
         self.initializeSpeedsign2()
 
         self.speed = Text(self.baseFrame, bg=colors['white'], borderwidth=0, highlightthickness=0,
