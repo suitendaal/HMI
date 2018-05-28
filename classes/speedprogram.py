@@ -49,21 +49,22 @@ class SpeedProgram(object):
                     default_speed = num['udp_data']['advisory_speed_variables']['advisory_speed']
                     self.showInHMI(default_speed)
                 elif start_analyzing < vehicles[0].position.xpos < end_merging_lane:
-                    if self.level == 3:
-                        if self.gap is None:
-                            advisory_speed, gap = self.datamanager.calculateAdvisorySpeed(vehicles)
-                        else:
-                            advisory_speed, gap = self.datamanager.calculateAdvisorySpeed3(vehicles, self.gap)
-                            if self.gap_toegewezen and gap is None:
-                                self.error = True
-                    else:
-                        advisory_speed, gap = self.datamanager.calculateAdvisorySpeed(vehicles)
+                    # if self.level == 3:
+                    #     if self.gap is None:
+                    #         advisory_speed, gap = self.datamanager.calculateAdvisorySpeed(vehicles)
+                    #     else:
+                    #         advisory_speed, gap = self.datamanager.calculateAdvisorySpeed3(vehicles, self.gap)
+                    #         if self.gap_toegewezen and gap is None:
+                    #             self.error = True
+                    # else:
+                    #     advisory_speed, gap = self.datamanager.calculateAdvisorySpeed(vehicles)
+                    advisory_speed, gap = self.datamanager.calculateAdvisorySpeed(vehicles)
 
-                    if (self.gap is None and self.level == 3 and vehicles[0].position.xpos < start_merging_lane)\
-                            or self.level == 4:
-                        self.gap = gap
-                        if self.level == 3:
-                            self.gap_toegewezen = True
+                    # if (self.gap is None and self.level == 3 and vehicles[0].position.xpos < start_merging_lane)\
+                    #         or self.level == 4:
+                    #     self.gap = gap
+                    #     if self.level == 3:
+                    #         self.gap_toegewezen = True
 
                     if difference_time > 2000:
                         start_time = current_time
@@ -76,21 +77,20 @@ class SpeedProgram(object):
                                 speed_to_show = vehicles[0].min_advisory
                             self.showInHMI(int(speed_to_show))
 
-                    if start_merging_lane < vehicles[0].position.xpos < end_merging_lane and\
-                            (self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not \
-                            None and not self.error and vehicles[0].position.ypos < 6.5:
+                    if start_merging_lane < vehicles[0].position.xpos < end_merging_lane:# and\
+                            #(self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not \
+                            #None and not self.error and vehicles[0].position.ypos < 6.5:
                         gap.rel_distance = gap.xpos() - vehicles[0].position.xpos
                         gap.speedDifference(vehicles[0].dynamics.velocity)
 
                         print(self.datamanager.checkIfError())
 
-                        if self.level == 4 and (self.datamanager.checkIfError() or
-                                                (self.dot_color == colors['green'] and not self.nextToGap(self.gap, vehicles[0]))):
-                            self.dot_color = colors['red']
-                        elif self.nextToGap(gap, vehicles[0]):
-                            self.dot_color = colors['green']
-                        self.plotGap(gap, self.dot_color)
-                        print("inside")
+                        if self.level == 4:
+                            if self.datamanager.checkIfError() or (self.dot_color == colors['green'] and not self.nextToGap(self.gap, vehicles[0])):
+                                self.dot_color = colors['red']
+                            elif self.nextToGap(gap, vehicles[0]):
+                                self.dot_color = colors['green']
+                            self.plotGap(gap, self.dot_color)
                     else:
                         self.hideGap()
                 else:

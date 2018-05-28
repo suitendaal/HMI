@@ -32,7 +32,7 @@
       "distance_gap": -2,
       "advisory_speed": 80,
       "speed_difference": 72,
-      "reaction_time": 500
+      "reaction_time": 1000
     },
 	"road_data": {
       "start_analyzing": -200,
