@@ -90,6 +90,8 @@ class SpeedProgram(object):
                                 self.dot_color = colors['red']
                             elif self.nextToGap(gap, vehicles[0]):
                                 self.dot_color = colors['green']
+                            else:
+                                self.dot_color = colors['blue']
                             self.plotGap(gap, self.dot_color)
                     else:
                         self.hideGap()
