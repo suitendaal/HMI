@@ -71,7 +71,7 @@ class SpeedProgram(object):
                         if advisory_speed < 0:
                             self.showInHMI("")
                         else:
-                            speed_to_show = self.advisorySpeed()
+                            speed_to_show = advisory_speed
                             if speed_to_show < vehicles[0].min_advisory:
                                 speed_to_show = vehicles[0].min_advisory
                             self.showInHMI(speed_to_show)
