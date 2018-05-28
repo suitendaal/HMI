@@ -48,7 +48,7 @@ class SpeedProgram(object):
                 if vehicles[0].position.xpos < start_analyzing:
                     default_speed = num['udp_data']['advisory_speed_variables']['advisory_speed']
                     self.showInHMI(default_speed)
-                if start_analyzing < vehicles[0].position.xpos < end_merging_lane:
+                elif start_analyzing < vehicles[0].position.xpos < end_merging_lane:
                     if self.level == 3:
                         if self.gap is None:
                             advisory_speed, gap = self.datamanager.calculateAdvisorySpeed(vehicles)
@@ -74,9 +74,9 @@ class SpeedProgram(object):
                             speed_to_show = advisory_speed
                             if speed_to_show < vehicles[0].min_advisory:
                                 speed_to_show = vehicles[0].min_advisory
-                            self.showInHMI(speed_to_show)
-
-                    print(vehicles[0].position.xpos)
+                            self.showInHMI(int(speed_to_show))
+                    if self.gap is not None:
+                        print(self.gap.speed())
 
                     if start_merging_lane < vehicles[0].position.xpos < end_merging_lane and\
                             (self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not \
