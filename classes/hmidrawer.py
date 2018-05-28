@@ -29,6 +29,13 @@ class HMIDrawer(Tk):
             self.canvasright = Canvas(self.baseFrame, bg=colors['background'], highlightthickness=0)
         self.initializeCanvasRight(level)
 
+        self.speedsign2 = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
+        self.initializeSpeedsign2()
+
+        self.speed = Text(self.baseFrame, bg=colors['white'], borderwidth=0, highlightthickness=0,
+                          font=('Helvetica 16 bold'), height=1, width=3)
+        self.initializeSpeed()
+
         if level == 1:
             return
 
@@ -40,15 +47,11 @@ class HMIDrawer(Tk):
 
             # Place the speedsign
             self.speedsign = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
-            self.speedsign2 = Label(self.baseFrame, bg=colors['background'], borderwidth=0)
             self.initializeSpeedsign()
 
             # Set Text
             self.text = Text(self.baseFrame, bg=colors['white'], borderwidth=0, highlightthickness=0, font=('Helvetica 16 bold'), height=1, width=3)
             self.initializeText()
-
-            self.speed = Text(self.baseFrame, bg=colors['white'], borderwidth=0, highlightthickness=0, font=('Helvetica 16 bold'), height=1, width=3)
-            self.initializeSpeed()
 
             self.vehicles = []
 
@@ -129,13 +132,16 @@ class HMIDrawer(Tk):
 
         self.speedsign.place(relx=num["canvas"]["place_x_sign"], rely=num["canvas"]["place_y_sign"], anchor=CENTER)
 
+    def initializeSpeedsign2(self):
         # 2e image
         self.speedsignimage2 = PhotoImage(file='resources/speedo.png')
         self.speedsignimage2 = self.speedsignimage2.zoom(1).subsample(3)
         # zoom the image
-        self.speedsignimage2 = self.speedsignimage2.zoom(num["canvas"]["zoomlevel"][0]).subsample(num["canvas"]["zoomlevel"][1])
+        self.speedsignimage2 = self.speedsignimage2.zoom(num["canvas"]["zoomlevel"][0]).subsample(
+            num["canvas"]["zoomlevel"][1])
         self.speedsign2.configure(image=self.speedsignimage2)
-        self.speedsign2.place(relx=num["canvas"]["place_x_mergingsign"], rely=num["canvas"]["place_y_sign"], anchor=CENTER)
+        self.speedsign2.place(relx=num["canvas"]["place_x_mergingsign"], rely=num["canvas"]["place_y_sign"],
+                              anchor=CENTER)
 
     def initializeCanvasRight(self, level):
         if level == 1:
