@@ -134,7 +134,7 @@ class HMIDrawer(Tk):
 
     def initializeSpeedsign2(self):
         # 2e image
-        self.speedsignimage2 = PhotoImage(file='resources/speedo.png')
+        self.speedsignimage2 = PhotoImage(file='resources/speedo1.png')
         self.speedsignimage2 = self.speedsignimage2.zoom(1).subsample(3)
         # zoom the image
         self.speedsignimage2 = self.speedsignimage2.zoom(num["canvas"]["zoomlevel"][0]).subsample(
