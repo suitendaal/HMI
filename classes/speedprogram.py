@@ -102,9 +102,6 @@ class SpeedProgram(object):
                     self.advisory_speeds = []
                     self.showInHMI("")
                     self.hideGap()
-            else:
-                self.showInHMI("")
-                self.hideGap()
             self.hmi.show()
 
     #     if self.level > 2:
