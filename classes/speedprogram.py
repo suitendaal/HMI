@@ -184,7 +184,7 @@ class SpeedProgram(object):
 
     def nextToGap(self, gap, vehicle):
         speed_difference = 100 * num['udp_data']['advisory_speed_variables']['speed_difference']
-        print(3.6 * gap.speed())
+        print(3.6 * gap.vehicle_front.dynamics.velocity)
         return gap.speed_difference < speed_difference and self.prediction(gap, vehicle)
 
     def prediction(self, gap, vehicle):
