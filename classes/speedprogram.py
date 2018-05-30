@@ -34,6 +34,8 @@ class SpeedProgram(object):
 
             if vehicles is not None and len(vehicles) > 0:
                 self.show_speed(int(3.6 * vehicles[0].dynamics.velocity))
+                if len(vehicles) > 1:
+                    print(vehicles[1].dynamics.velocity)
 
             if self.level > 2:
 
