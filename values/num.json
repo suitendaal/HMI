@@ -22,7 +22,7 @@
       "errorduration": 1000
     },
     "gapspace": {
-      "factor": 1.2,
+      "factor": 1.1,
       "time": 5
     },
     "advisory_speed_variables": {
