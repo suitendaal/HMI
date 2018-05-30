@@ -68,8 +68,9 @@ class SpeedProgram(object):
 
                         if self.level == 4:
                             if self.error:
-                                dif_error_time = current_time - self.start_error
-                                if dif_error_time > num['udp_data']['hmi_variables']['errorduration']:
+                                if self.datamanager.checkIfError():
+                                    self.start_error = current_time
+                                elif current_time - self.start_error > num['udp_data']['hmi_variables']['errorduration']:
                                     self.error = False
                             elif self.datamanager.checkIfError() or (self.dot_color == colors['green'] and not self.nextToGap(gap, vehicles[0])):
                                 self.dot_color = colors['red']
