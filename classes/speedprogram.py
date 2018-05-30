@@ -70,7 +70,7 @@ class SpeedProgram(object):
                         gap.rel_distance = gap.xpos() - vehicles[0].position.xpos
                         gap.speedDifference(vehicles[0].dynamics.velocity)
 
-                        print(self.datamanager.checkIfError())
+                        print(gap.rel_distance)
 
                         if self.level == 4:
                             if self.datamanager.checkIfError() or (self.dot_color == colors['green'] and not self.nextToGap(self.gap, vehicles[0])):
