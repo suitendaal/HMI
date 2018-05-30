@@ -23,7 +23,7 @@
       "plotfactor": 5
     },
     "gapspace": {
-      "factor": 1.03,
+      "factor": 1.02314,
       "time": 5
     },
     "advisory_speed_variables": {
