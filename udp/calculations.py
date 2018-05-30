@@ -67,10 +67,8 @@ def findTargetGap(vehicle, gaps):
     # gaps.sort(key=lambda x: abs(x.disToInter() - vehicle.disToInter()))
     gaps = gaps[::-1]
 
-    for gap in gaps:
-        print(gap.xpos(), end="")
-        print(" ", end="")
-    print("")
+    print(gaps[0].xpos(), end=" ")
+    print(vehicle.position.xpos)
 
     # Find nearest target gap which is at least the vehicle space.
     target_gap = None
