@@ -86,10 +86,6 @@ class SpeedProgram(object):
                 else:
                     self.hideGap()
                     self.showInHMI("")
-
-                if self.error:
-                    self.showInHMI("")
-                    self.hideGap()
             self.hmi.show()
 
     #     if self.level > 2:
