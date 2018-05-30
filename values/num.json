@@ -19,7 +19,8 @@
   "udp_data":
   {
     "hmi_variables": {
-      "errorduration": 1000
+      "errorduration": 1000,
+      "plotfactor": 1.6
     },
     "gapspace": {
       "factor": 1.1,

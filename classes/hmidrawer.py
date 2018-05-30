@@ -189,7 +189,7 @@ class HMIDrawer(Tk):
 
         self.hideGap()
 
-        distance = distance * 1.3
+        distance = distance * num['udp_data']['hmi_variables']['plotfactor']
 
         if distance > self.canvasleft.winfo_height() / 2 - ycompensation:
             distance = self.canvasleft.winfo_height() / 2 - ycompensation
