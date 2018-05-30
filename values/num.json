@@ -31,11 +31,11 @@
       "distance_back": 10,
       "distance_gap": -2,
       "advisory_speed": 80,
-      "speed_difference": 72,
+      "speed_difference": 36,
       "reaction_time": 1000
     },
 	"road_data": {
-      "start_analyzing": -200,
+      "start_analyzing": -250,
 	  "xpos_start_merginglane": 0,
 	  "xpos_end_merginglane": 300
 	},

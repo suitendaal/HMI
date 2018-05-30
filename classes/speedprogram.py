@@ -34,8 +34,6 @@ class SpeedProgram(object):
 
             if vehicles is not None and len(vehicles) > 0:
                 self.show_speed(int(3.6 * vehicles[0].dynamics.velocity))
-                if len(vehicles) > 1:
-                    print("speed: " + str(3.6 * vehicles[1].dynamics.velocity))
 
             if self.level > 2:
 
@@ -65,9 +63,6 @@ class SpeedProgram(object):
 
                     if start_merging_lane < vehicles[0].position.xpos < end_merging_lane and gap is not None and \
                             vehicles[0].position.ypos < 6.5:
-                            # and\
-                            # (self.level == 4 or (self.level == 3 and not gapChanged(self.gap, gap))) and gap is not \
-                            # None and not self.error and vehicles[0].position.ypos < 6.5:
                         gap.rel_distance = gap.xpos() - vehicles[0].position.xpos
                         gap.speedDifference(vehicles[0].dynamics.velocity)
 
@@ -185,8 +180,7 @@ class SpeedProgram(object):
             self.hideMergeCommand()
 
     def nextToGap(self, gap, vehicle):
-        speed_difference = 100 * num['udp_data']['advisory_speed_variables']['speed_difference']
-        print(3.6 * gap.vehicle_front.dynamics.velocity)
+        speed_difference = num['udp_data']['advisory_speed_variables']['speed_difference']
         return gap.speed_difference < speed_difference and self.prediction(gap, vehicle)
 
     def prediction(self, gap, vehicle):
