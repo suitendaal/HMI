@@ -23,8 +23,8 @@ class SpeedProgram(object):
         self.datamanager = DataManager(self.socket)
         self.dot_color = colors['blue']
 
-        self.gap_toegewezen = False
         self.error = False
+        self.start_error = 0
 
     def start(self):
         start_time = int(time.time() * 1000)
@@ -67,8 +67,14 @@ class SpeedProgram(object):
                         gap.speedDifference(vehicles[0].dynamics.velocity)
 
                         if self.level == 4:
-                            if self.datamanager.checkIfError() or (self.dot_color == colors['green'] and not self.nextToGap(gap, vehicles[0])):
+                            if self.error:
+                                dif_error_time = current_time - self.start_error
+                                if dif_error_time > num['udp_data']['hmi_variables']['errorduration']:
+                                    self.error = False
+                            elif self.datamanager.checkIfError() or (self.dot_color == colors['green'] and not self.nextToGap(gap, vehicles[0])):
                                 self.dot_color = colors['red']
+                                self.error = True
+                                self.start_error = current_time
                             elif self.nextToGap(gap, vehicles[0]):
                                 self.dot_color = colors['green']
                             else:
