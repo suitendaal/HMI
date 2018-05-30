@@ -185,7 +185,7 @@ class HMIDrawer(Tk):
         self.update()
 
     def plotGap(self, distance, color):
-        ycompensation = 30
+        ycompensation = 10
 
         self.hideGap()
 
