@@ -75,6 +75,7 @@ class SpeedProgram(object):
                                 self.dot_color = colors['red']
                                 self.error = True
                                 self.start_error = current_time
+                                print(time, end=str(self.error))
                             elif self.nextToGap(gap, vehicles[0]):
                                 self.dot_color = colors['green']
                             else:
