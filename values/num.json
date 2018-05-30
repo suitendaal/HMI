@@ -20,7 +20,7 @@
   {
     "hmi_variables": {
       "errorduration": 1000,
-      "plotfactor": 6
+      "plotfactor": 8
     },
     "gapspace": {
       "factor": 1.1,
