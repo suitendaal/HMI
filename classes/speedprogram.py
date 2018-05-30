@@ -16,7 +16,6 @@ class SpeedProgram(object):
 
         self.hmi = hmi
         self.hmi.show()
-        self.gap = None
 
         self.level = level
 
@@ -70,10 +69,10 @@ class SpeedProgram(object):
                         gap.rel_distance = gap.xpos() - vehicles[0].position.xpos
                         gap.speedDifference(vehicles[0].dynamics.velocity)
 
-                        print(gap.rel_distance)
+                        print(gap.xpos())
 
                         if self.level == 4:
-                            if self.datamanager.checkIfError() or (self.dot_color == colors['green'] and not self.nextToGap(self.gap, vehicles[0])):
+                            if self.datamanager.checkIfError() or (self.dot_color == colors['green'] and not self.nextToGap(gap, vehicles[0])):
                                 self.dot_color = colors['red']
                             elif self.nextToGap(gap, vehicles[0]):
                                 self.dot_color = colors['green']

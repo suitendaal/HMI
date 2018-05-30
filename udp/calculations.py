@@ -138,7 +138,7 @@ def calculateAdvisorySpeedToGap(vehicles, target_gap):
     return target_gap, advisory_speed
 
 
-def calculateAdvisorySpeed(all_vehicles, t_max, gap=None, gaps=None):
+def calculateAdvisorySpeed(all_vehicles, t_max, gaps=None):
     main_vehicle = all_vehicles[0]
     vehicles = all_vehicles[1:]
 
@@ -157,15 +157,6 @@ def calculateAdvisorySpeed(all_vehicles, t_max, gap=None, gaps=None):
     target_gap = None
 
     if (len(vehicles)) > 1:
-
-        if gap is not None:
-
-            target_gap = gap
-            advisory_speed = advisorySpeed(target_gap, main_vehicle)
-            if advisory_speed > main_vehicle.max_speed:
-                advisory_speed = -1
-                target_gap = None
-            return target_gap, advisory_speed
 
         # Create an array of gaps.
         if gaps is None:

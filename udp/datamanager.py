@@ -38,7 +38,7 @@ class DataManager(object):
 
         self.error = checkIfError(self.old_vehicles, self.vehicles, self.old_gap, self.gap)
 
-    def calculateAdvisorySpeed(self, vehicles, gap=None):
+    def calculateAdvisorySpeed(self, vehicles):
         self.old_vehicles = self.vehicles
         self.old_gap = self.gap
 
@@ -46,32 +46,32 @@ class DataManager(object):
 
         if self.vehicles is not None and len(self.vehicles) > 1 and self.vehicles[0].position.ypos < 6.5:
             t_min, t_max = calculateTimeToIntersection(self.vehicles)
-            self.gap, self.advisory_speed = calculateAdvisorySpeed(self.vehicles, t_max, gap=gap)
+            self.gap, self.advisory_speed = calculateAdvisorySpeed(self.vehicles, t_max)
         else:
             self.gap = None
             self.advisory_speed = -1
 
         return self.advisory_speed, self.gap
 
-    def calculateAdvisorySpeed3(self, vehicles, gap):
-        self.old_vehicles = self.vehicles
-        self.old_gap = self.gap
-
-        self.vehicles = vehicles
-
-        if self.vehicles is not None and len(self.vehicles) > 1 and self.vehicles[0].position.ypos < 6.5:
-            t_min, t_max = calculateTimeToIntersection(self.vehicles)
-            self.gap = whereIsGap(vehicles, gap, t_max)
-
-            if self.gap is None:
-                self.advisory_speed = -1
-            else:
-                self.gap, self.advisory_speed = calculateAdvisorySpeedToGap(self.vehicles, self.gap)
-
-        else:
-            self.gap = None
-            self.advisory_speed = -1
-        return self.advisory_speed, self.gap
+    # def calculateAdvisorySpeed3(self, vehicles, gap):
+    #     self.old_vehicles = self.vehicles
+    #     self.old_gap = self.gap
+    #
+    #     self.vehicles = vehicles
+    #
+    #     if self.vehicles is not None and len(self.vehicles) > 1 and self.vehicles[0].position.ypos < 6.5:
+    #         t_min, t_max = calculateTimeToIntersection(self.vehicles)
+    #         self.gap = whereIsGap(vehicles, gap, t_max)
+    #
+    #         if self.gap is None:
+    #             self.advisory_speed = -1
+    #         else:
+    #             self.gap, self.advisory_speed = calculateAdvisorySpeedToGap(self.vehicles, self.gap)
+    #
+    #     else:
+    #         self.gap = None
+    #         self.advisory_speed = -1
+    #     return self.advisory_speed, self.gap
 
     def manageData(self, data):
         # In matlab this function is called sort and vehicle convert
@@ -129,26 +129,18 @@ class DataManager(object):
             vehicles.append(vehicle)
         return vehicles
 
-    def checkIfError(self, old_vehicles=None, vehicles=None, old_gap=None, gap=None):
-        if old_vehicles is None:
-            old_vehicles = self.old_vehicles
-        if vehicles is None:
-            vehicles = self.vehicles
-        if old_gap is None:
-            old_gap = self.old_gap
-        if gap is None:
-            gap = self.gap
+    def checkIfError(self):
 
-        if old_vehicles is not None and len(old_vehicles) > 1:
-            old_vehicles1 = old_vehicles[1:]
+        if self.old_vehicles is not None and len(self.old_vehicles) > 1:
+            old_vehicles = self.old_vehicles[1:]
         else:
-            old_vehicles1 = old_vehicles
+            old_vehicles = None
 
-        if vehicles is not None and len(vehicles) > 1:
-            vehicles1 = vehicles[1:]
+        if self.vehicles is not None and len(self.vehicles) > 1:
+            vehicles = self.vehicles[1:]
         else:
-            vehicles1 = vehicles
+            vehicles = None
 
-        return checkIfError(old_vehicles1, vehicles1, old_gap, gap)
+        return checkIfError(old_vehicles, vehicles, self.old_gap, self.gap)
 
 
