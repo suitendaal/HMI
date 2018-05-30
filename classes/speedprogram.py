@@ -69,8 +69,6 @@ class SpeedProgram(object):
                         gap.rel_distance = gap.xpos() - vehicles[0].position.xpos
                         gap.speedDifference(vehicles[0].dynamics.velocity)
 
-                        print(vehicles[0].type.carlength)
-
                         if self.level == 4:
                             if self.datamanager.checkIfError() or (self.dot_color == colors['green'] and not self.nextToGap(gap, vehicles[0])):
                                 self.dot_color = colors['red']
@@ -186,6 +184,7 @@ class SpeedProgram(object):
 
     def nextToGap(self, gap, vehicle):
         speed_difference = 100 * num['udp_data']['advisory_speed_variables']['speed_difference']
+        print(gap.speed_difference)
         return gap.speed_difference < speed_difference and self.prediction(gap, vehicle)
 
     def prediction(self, gap, vehicle):
